@@ -29,7 +29,7 @@ namespace PartialCopy
                         if (Console.ReadLine().ToUpper() != "Y")
                             return -2;
                     }
-                    using (FileStream writer = File.OpenWrite(args[1]))
+                    using (FileStream writer = new(args[1], FileMode.Create))
                     {
                         long read = 0; // counter of total bytes read
                         int readCurrBlock = 0; // current block read size
