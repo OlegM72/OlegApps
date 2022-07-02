@@ -16,7 +16,6 @@ namespace PartialCopy
             try
             {
                 using (FileStream reader = File.OpenRead(args[0]))
-                using (FileStream writer = File.OpenWrite(args[1]))
                 {
                     if (!Int32.TryParse(args[2], out int desiredSize))
                         throw new ArgumentException("Wrong desired size");
@@ -30,23 +29,26 @@ namespace PartialCopy
                         if (Console.ReadLine().ToUpper() != "Y")
                             return -2;
                     }
-                    long read = 0; // counter of total bytes read
-                    int readCurrBlock = 0; // current block read size
-                    byte[] buffer = new byte[100000000];
-                    bool stop = false;
-                    while (!stop && (readCurrBlock = reader.Read(buffer)) != 0)
+                    using (FileStream writer = File.OpenWrite(args[1]))
                     {
-                        read += (long)readCurrBlock;
-                        if (read >= desiredSize)
+                        long read = 0; // counter of total bytes read
+                        int readCurrBlock = 0; // current block read size
+                        byte[] buffer = new byte[100000000];
+                        bool stop = false;
+                        while (!stop && (readCurrBlock = reader.Read(buffer)) != 0)
                         {
-                            readCurrBlock -= (int)(read - desiredSize); // decrease the buffer if we need less size
-                            stop = true;
-                        }
-                        writer.Write(buffer, 0, readCurrBlock);
-                        if (stop)
-                        {
-                            writer.Flush();
-                            Console.WriteLine($"{desiredSize} bytes copied.");
+                            read += (long)readCurrBlock;
+                            if (read >= desiredSize)
+                            {
+                                readCurrBlock -= (int)(read - desiredSize); // decrease the buffer if we need less size
+                                stop = true;
+                            }
+                            writer.Write(buffer, 0, readCurrBlock);
+                            if (stop)
+                            {
+                                writer.Flush();
+                                Console.WriteLine($"{desiredSize} bytes copied.");
+                            }
                         }
                     }
                 }
