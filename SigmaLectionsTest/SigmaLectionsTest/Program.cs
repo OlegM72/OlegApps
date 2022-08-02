@@ -8,6 +8,7 @@ using System.Collections.ObjectModel; // проксі та базові клас
 using System.Collections.Concurrent; // потокобезпечні колекції
 using System.Linq;
 using System.Collections.Immutable;
+using System.Runtime.Serialization;
 
 namespace SigmaLectionsTest
 {
@@ -996,6 +997,98 @@ Second Line";
 			}
 		}
 
+		// declaration of the delegate for reaction on the event adding an expired product
+		// public delegate void ProductsExpired<ProductsExpiredArgs>(string product); // <T> is not needed if it is not used in parameters
+		public delegate void ProductsExpired<ProductsExpiredArgs>(ProductsExpiredArgs args);
+
+		// arguments type for the handler
+		public class ProductsExpiredArgs : EventArgs
+		{
+			public string ExpiredProduct { get; }
+
+			public ProductsExpiredArgs(string expiredProduct)
+			{
+				ExpiredProduct = expiredProduct;
+			}
+		}
+
+		public class Storage
+		{
+			int s_count = 0;
+			public event ProductsExpired<ProductsExpiredArgs> productsExpired; // event declaration
+			public Storage() // створення порожнього складу
+			{
+				productsExpired += WriteProductsExpired;
+			}
+
+			public void RemoveProduct(string product) // delegate implementation #1: remove the given product from storage
+			{
+				if (!CheckProductsExpired(product))
+				{
+					s_count--;
+					Console.WriteLine($"Product {product} removed");
+				}
+			}
+			public void WriteProductsExpired(ProductsExpiredArgs args) // delegate implementation #2: list the product in the utilization file
+			{
+				Console.WriteLine($"Products has been expired, cannot remove {args.ExpiredProduct}");
+			}
+
+			public void AddProduct(string product) // a template for the future method of adding a product
+			{
+				s_count++;
+				Console.WriteLine($"Product {product} added");
+			}
+
+			public bool CheckProductsExpired(string product) // checking the list and finding expired dairy products
+			{
+				if (s_count <= 0)
+				{
+					// productsExpired(product);  -- but better (no null exception):
+					// productsExpired?.Invoke(product); - for (string product) instead of args in event declaration
+					productsExpired?.Invoke(new ProductsExpiredArgs(product));
+					return true;
+				}
+				return false;
+			}
+		}
+
+		public class Shop
+		{
+			internal static void ShopOverflow(object sender)
+			// event handler for the case if a cashier is overqueued and should be paused
+			{
+				if (sender is not Cashier)
+					return;
+				Console.WriteLine($"*** Shop is overflowed, cashier #{Cashier.Number}! ***");
+			}
+		}
+
+		public class Cashier
+		{
+			public static int Number { get; set; }
+			public static event ShopOverflowHandler ShopOverflow = Shop.ShopOverflow; // subscribe permanently here but can do it in constructor
+			public delegate void ShopOverflowHandler(object sender);
+
+			public Cashier()
+			{
+				Number++;
+				// the handler is static but we could also make it public and use through "Shop owner" parameter here
+				CheckOverflow();
+			}
+
+			public virtual void OnShopOverflow()
+			{
+				ShopOverflow?.Invoke(this);   // call the event
+			}
+
+			public void CheckOverflow()
+			{
+				if (Number > 2)
+					OnShopOverflow();   // call the handler
+			}
+		}
+
 		public static void Лекция18()
 		{
 			D d = new D(F); // скорочено: D d = F;
@@ -1123,11 +1216,462 @@ Second Line";
 			int[] years = { 1920, 1930, 1980, 2000 };
 			int foundedBeforeYear = years[rnd.Next(0, years.Length)];
 			Console.WriteLine("Teams founded before {0}:", foundedBeforeYear); // Teams founded before 1920:
-			// Predicate<HockeyTeam> as a lambda. x is HockeyTeam, FindAll returns List<HockeyTeam>
+																			   // Predicate<HockeyTeam> as a lambda. x is HockeyTeam, FindAll returns List<HockeyTeam>
 			foreach (HockeyTeam team in teams.FindAll(x => x.Founded <= foundedBeforeYear))
 				Console.WriteLine("{0}: {1}", team.Name, team.Founded);        // Montreal Canadiens: 1909
+
+			Storage storage = new();
+			storage.AddProduct("Meat");      // Product Meat added
+			storage.AddProduct("Fish");      // Product Fish added
+			storage.AddProduct("Movie");     // Product Movie added
+			storage.RemoveProduct("Meat");   // Product Meat removed
+			storage.RemoveProduct("Fish");   // Product Fish removed
+			storage.RemoveProduct("Movie");  // Product Movie removed
+			storage.RemoveProduct("Table");  // Products has been expired, cannot remove Table
+
+			Shop shop = new();
+			Cashier cashier1 = new();
+			Cashier cashier2 = new();
+			Cashier cashier3 = new(); // ***Shop is overflowed, cashier #3! ***
 		}
 
+		public abstract class Shape
+		{
+			public abstract double Area();
+		}
+
+
+		public class CircleShape : Shape
+		{
+			public int Radius { get; set; }
+
+			public CircleShape(int radius)
+			{
+				Radius = radius;
+			}
+			public override double Area()
+			{
+				return Radius * Radius * Math.PI;
+			}
+		}
+
+		[DataContract]
+		public class RectangleShape : Shape
+		{
+			[DataMember]
+			public int Height { get; set; }
+			[DataMember]
+			public int Width { get; set; }
+
+			public RectangleShape(int height, int width)
+			{
+				Height = height;
+				Width = width;
+			}
+
+			[OnDeserialized]
+			[OnDeserializing]
+			[OnSerialized]
+			[OnSerializing]
+			public override double Area()
+			{
+				return Width * Height;
+			}
+
+			// this method violates SOLID (SRP principle) - use Drawer instead
+			public void Draw()
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				for (int i = 0; i < Height; i++)
+				{
+					for (int j = 0; j < Width; j++)
+						Console.Write("██");
+					Console.WriteLine();
+				}
+				Console.ResetColor();
+			}
+		}
+		public class AreaCalculator
+		{
+			public double TotalArea(Shape[] shapes)
+			{
+				double area = 0;
+				foreach (var shape in shapes)
+				{
+					area += shape.Area();
+				}
+				return area;
+			}
+		}
+
+		public class Drawer
+		{
+			public void DrawRectangle(RectangleShape rectangleShape)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				for (int i = 0; i < rectangleShape.Height; i++)
+				{
+					for (int j = 0; j < rectangleShape.Width; j++)
+						Console.Write("██");
+					Console.WriteLine();
+				}
+				Console.ResetColor();
+			}
+		}
+
+		class Vehicle
+		{
+			public void startEngine()
+			{
+				// 	Default engine start functionality 
+			}
+			public void accelerate()
+			{
+				// Default acceleration functionality
+			}
+		}
+		class Car : Vehicle
+		{
+			public void startEngine()
+			{
+				this.engageIgnition();
+				base.startEngine();
+			}
+			private void engageIgnition()
+			{ // Ignition procedure }
+			}
+		}
+
+		#region Base Classes
+
+		public class Component : IComponent
+		{
+			public string Brand
+			{
+				get;
+				set;
+			}
+
+			public string Model
+			{
+				get;
+				set;
+			}
+		}
+
+		#endregion Base Classes
+
+		#region Interfaces
+
+		public interface IComponent
+		{
+			string Brand { get; set; }
+			string Model { get; set; }
+		}
+
+		public interface IStarter : IComponent
+		{
+			IgnitionResult Start();
+		}
+		public interface IElectricStarter : IStarter
+		{
+			Battery Battery { get; set; }
+		}
+
+		public interface IPneumaticStarter : IStarter
+		{
+			AirCompressor Compressor { get; set; }
+		}
+
+		public interface IHydraulicStarter : IStarter
+		{
+			HydraulicPump Pump { get; set; }
+		}
+
+		#endregion Interfaces
+
+		#region Starter Types (Services)
+
+		public class ElectricStarter : Component, IElectricStarter
+		{
+			public Battery Battery
+			{
+				get;
+				set;
+			}
+
+			public IgnitionResult Start()
+			{
+				//code here to initiate the electric starter
+				return IgnitionResult.Success;
+			}
+		}
+
+		public class PneumaticStarter : Component, IPneumaticStarter
+		{
+			public AirCompressor Compressor
+			{
+				get;
+				set;
+			}
+
+			public IgnitionResult Start()
+			{
+				//code here to initiate the pneumatic starter
+				return IgnitionResult.Success;
+			}
+		}
+
+		public class HydraulicStarter : Component, IHydraulicStarter
+		{
+			public HydraulicPump Pump
+			{
+				get;
+				set;
+			}
+
+			public IgnitionResult Start()
+			{
+				//code here to initiate the hydraulic starter
+				return IgnitionResult.Success;
+			}
+		}
+		#endregion Starter Types
+
+		#region Starter Support Components
+
+		public class Battery : Component
+		{
+			public bool IsCharged
+			{
+				get
+				{
+					/*we could write logic here to handle the
+	                  validation of the battery's charge
+	                  for now, we will just return true */
+					return true;
+				}
+			}
+		}
+
+		public class AirCompressor : Component
+		{
+		}
+
+		public class HydraulicPump : Component
+		{
+		}
+
+		#endregion Starter Support Components
+
+		#region Enums
+
+		public enum IgnitionResult
+		{
+			Success,
+			Failure
+		}
+
+		#endregion Enums
+
+		class ElectricBus : Vehicle
+		{
+			public void accelerate()
+			{
+				this.increaseVoltage();
+				this.connectIndividualEngines();
+			}
+			private void increaseVoltage() { } // Electric logic
+			private void connectIndividualEngines() { } // Connection logic
+		}
+
+		public static void Лекция20()
+		{
+			RectangleShape rectangle = new(5, 10);
+			Drawer drawer = new();
+			drawer.DrawRectangle(rectangle);
+
+			CircleShape circle = new(10);
+			Shape[] shapes = { rectangle, circle };
+			AreaCalculator areaCalc = new();
+			Console.WriteLine("Total area of rectangle and circle is " + areaCalc.TotalArea(shapes));
+			// Total area of rectangle and circle is 364,1592653589793
+		}
+
+		public class Based
+		{
+			public virtual void Print()
+			{
+				Console.WriteLine("Base");
+			}
+		}
+
+		public class Child1 : Based
+		{
+			public override void Print()
+			{
+				Console.WriteLine("Child1");
+			}
+		}
+
+		public class Child2 : Based
+		{
+			public new void Print()
+			{
+				Console.WriteLine("Child2");
+			}
+		}
+
+		public class SimpleStack<T>
+		{
+			public T[] array;
+			int size;
+			int topPtr; // index of top
+
+			public SimpleStack(int size = 1)
+			{
+				this.size = size;
+				array = new T[size];
+				topPtr = 0;
+			}
+			public void Push(T item) // Adds an item to the stack
+			{
+				if (topPtr < size)
+				{
+					array[topPtr] = item;
+					topPtr++;
+				}
+				else
+				{
+					// increase the array size
+					T[] arrayCopy = new T[size * 2];
+					Array.Copy(array, arrayCopy, size);
+					size = size * 2;
+					array = arrayCopy;
+					Push(item);
+				}
+			}
+			public T Pop() // Returns 
+			{
+				topPtr--;
+				if (topPtr >= 0)
+				{
+					return array[topPtr];
+				}
+				else
+				{
+					Console.WriteLine("Stack is empty");
+					topPtr = 0;
+					return default(T);
+				}
+			}
+			public bool IsEmpty => topPtr == 0;
+		}
+
+		class Sample : IDisposable
+		{
+			public void Dispose()
+			{
+				Console.WriteLine("Dispose");
+			}
+		}
+
+		class SampleClass
+		{
+			public int Value { get; set; }
+		}
+
+		struct SampleStruct
+		{
+			public int Value { get; set; }
+		}
+
+		static void IncrementValue(SampleClass sample)
+		{
+			sample.Value++;
+		}
+
+		static void IncrementValue(SampleStruct sample)
+		{
+			sample.Value++;
+		}
+
+		static void IncrementNumber(ref int number)
+		{
+			number++;
+		}
+
+		static void DecrementNumber(int number)
+		{
+			number--;
+		}
+
+		static void GetNumber(out int number)
+		{
+			number = 42;
+		}
+
+		public static T[] ReverseArray<T>(T[] array)
+        {
+			return array.Select(item => item).Reverse().ToArray();
+			// или
+			// IEnumerable<T> list = from item in array select item;
+			// return list.Reverse().ToArray();
+		}
+
+		public static void Test()
+		{
+			Child1 child1 = new Child1();
+			Child2 child2 = new Child2();
+			child1.Print();
+			(child1 as Based).Print();
+			child2.Print();
+			(child2 as Based).Print();
+
+			int number = 42;
+			Action printNumber = () => Console.WriteLine(number);
+			number++;
+			printNumber(); // 43
+
+			SimpleStack<int> simpleStack = new();
+			simpleStack.Push(10);
+			simpleStack.Push(20);
+			Console.WriteLine(simpleStack.Pop()); // 20
+			Console.WriteLine(simpleStack.Pop()); // 10
+			Console.WriteLine(simpleStack.Pop()); // Stack is empty 0
+
+			try
+			{
+				using (Sample sample = new Sample())
+				{
+					throw new Exception();
+				}
+			}
+			catch (Exception)
+			{
+				Console.WriteLine("Exception");
+			}
+			// Output:
+			// Dispose
+			// Exception
+
+			SampleClass sampleClass = new SampleClass();
+			IncrementValue(sampleClass);
+			Console.WriteLine(sampleClass.Value); // 1
+
+			SampleStruct sampleStruct = new SampleStruct();
+			IncrementValue(sampleStruct);
+			Console.WriteLine(sampleStruct.Value); // 0
+			
+			int someNumber;
+			GetNumber(out someNumber); // -> 42
+			IncrementNumber(ref someNumber); // -> 43
+			DecrementNumber(someNumber); // = 43
+			Console.WriteLine(someNumber); // 43
+
+			int[] array = { 1, 2, 3, 4, 5, 6, 7 };
+			PrintList(ReverseArray(array)); // 7 6 5 4 3 2 1
+		}
 
 		static void Main(string[] args)
 		{
@@ -1139,6 +1683,8 @@ Second Line";
 			// Лекция13(); // try-catch cont.
 			// Лекция17(); // collections
 			// Лекция18(); // Lambdas, delegates, events
+			// Лекция20(); // SOLID, (de)serialization
+			Test();
 
 		} // Main
 	} // Program class
