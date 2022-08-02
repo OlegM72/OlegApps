@@ -1498,7 +1498,7 @@ Second Line";
 			// Total area of rectangle and circle is 364,1592653589793
 		}
 
-		public class Based
+		public class Base
 		{
 			public virtual void Print()
 			{
@@ -1506,7 +1506,7 @@ Second Line";
 			}
 		}
 
-		public class Child1 : Based
+		public class Child1 : Base
 		{
 			public override void Print()
 			{
@@ -1514,7 +1514,7 @@ Second Line";
 			}
 		}
 
-		public class Child2 : Based
+		public class Child2 : Base
 		{
 			public new void Print()
 			{
@@ -1619,14 +1619,53 @@ Second Line";
 			// return list.Reverse().ToArray();
 		}
 
+		static void PrintTest(string str)
+		{
+			Console.WriteLine("String");
+		}
+
+		static void PrintTest(int number)
+		{
+			Console.WriteLine("Int");
+		}
+
+		static void PrintTest(object obj)
+		{
+			Console.WriteLine("Object");
+		}
+
+		void TestVar1()
+		{
+			var test = 42;
+			// test = "string";  --- не удается неявно преобразовать тип string в int.
+		}
+
+		void TestVar2()
+		{
+			var test = new object();
+			// test.SomeProperty = 42; ---object не содержит определения SomeProperty
+		}
+
+		void TestDynamic()
+		{
+			dynamic test = "some string";
+			test = 42;
+		}
+
+		void TestObject()
+		{
+			object test = new object();
+			test = 42;
+		}
+
 		public static void Test()
 		{
 			Child1 child1 = new Child1();
 			Child2 child2 = new Child2();
 			child1.Print();
-			(child1 as Based).Print();
+			(child1 as Base).Print();
 			child2.Print();
-			(child2 as Based).Print();
+			(child2 as Base).Print();
 
 			int number = 42;
 			Action printNumber = () => Console.WriteLine(number);
@@ -1671,6 +1710,10 @@ Second Line";
 
 			int[] array = { 1, 2, 3, 4, 5, 6, 7 };
 			PrintList(ReverseArray(array)); // 7 6 5 4 3 2 1
+
+			PrintTest(true); // Object
+			PrintTest(42);   // Int
+			PrintTest("test"); // String
 		}
 
 		static void Main(string[] args)
