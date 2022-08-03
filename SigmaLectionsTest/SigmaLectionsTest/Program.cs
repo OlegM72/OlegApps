@@ -1634,29 +1634,35 @@ Second Line";
 			Console.WriteLine("Object");
 		}
 
-		void TestVar1()
+		static void TestVar1()
 		{
 			var test = 42;
 			// test = "string";  --- не удается неявно преобразовать тип string в int.
 		}
 
-		void TestVar2()
+		static void TestVar2()
 		{
 			var test = new object();
 			// test.SomeProperty = 42; ---object не содержит определения SomeProperty
 		}
 
-		void TestDynamic()
+		static void TestDynamic()
 		{
 			dynamic test = "some string";
+			Console.WriteLine(test);
 			test = 42;
+			Console.WriteLine(test);
+			test = 5.4;
+			Console.WriteLine(test);
 		}
 
-		void TestObject()
+		static void TestObject()
 		{
 			object test = new object();
 			test = 42;
+			Console.WriteLine(test);
 		}
+
 
 		public static void Test()
 		{
@@ -1701,7 +1707,7 @@ Second Line";
 			SampleStruct sampleStruct = new SampleStruct();
 			IncrementValue(sampleStruct);
 			Console.WriteLine(sampleStruct.Value); // 0
-			
+
 			int someNumber;
 			GetNumber(out someNumber); // -> 42
 			IncrementNumber(ref someNumber); // -> 43
@@ -1714,6 +1720,85 @@ Second Line";
 			PrintTest(true); // Object
 			PrintTest(42);   // Int
 			PrintTest("test"); // String
+
+			TestObject(); // 42
+			TestDynamic(); // 42, some string, 5.4
+		}
+
+		// testing override and new modificators for methods
+		// from https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/knowing-when-to-use-override-and-new-keywords
+
+		class BaseClass {
+			public virtual void Method1() {
+				Console.WriteLine("Base - Method1");
+			}
+			public void Method2() { // can be virtual, but is not overriden -> DerivedClass will use Base method
+				Console.WriteLine("Base - Method2");
+			}
+		}
+
+		class DerivedClass : BaseClass {
+			public override void Method1()
+			{
+				Console.WriteLine("Derived - Method1");
+			}
+
+			// public void Method2() { // CS0108  "Program.DerivedClass.Method2()" скрывает наследуемый член "Program.BaseClass.Method2()".
+			// Если скрытие было намеренным, используйте ключевое слово new.
+			// (также можно переименовать один из методов, но это часто не является практичным)
+			public new void Method2() { // adding NEW suppresses the warning
+				Console.WriteLine("Derived - Method2");
+			}
+		}
+
+		public static void AfterTest()
+        {
+			// from https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/knowing-when-to-use-override-and-new-keywords
+
+			BaseClass bc = new BaseClass(); // bc is of type BaseClass, and its value is of type BaseClass.
+			DerivedClass dc = new DerivedClass(); // dc is of type DerivedClass, and its value is of type DerivedClass.
+			BaseClass bcdc = new DerivedClass(); // bcdc is of type BaseClass, and its value is of type DerivedClass created by its constructor
+			// DerivedClass dcbc = new BaseClass(); // this cannot be done since BaseClass is not inherited from DerivedClass,
+													// we cannot just use its Base constructor
+			// without virtual in the BaseClass.Method1 and override in DerivedClass.Method1:
+			bc.Method1(); // Base - Method1  (bc is BaseClass)
+			dc.Method1(); // Base - Method1  (dc is of type DerivedClass but the method is not yet overriden)
+			dc.Method2(); // Derived - Method2  (dc is of type DerivedClass and has Method2)
+			bcdc.Method1(); // Base - Method1  (bcdc is of type BaseClass, it can directly access Method1)
+			Console.WriteLine();
+
+			// Because bc and bcdc have type BaseClass, they can only directly access Method1, unless you use casting.
+			// Variable dc can access both Method1 and Method2. These relationships are shown in the following code.
+
+			// After adding BaseClass.Method2 (not overriden and not new):
+			bc.Method1(); // Base - Method1  (bc is BaseClass) ==
+			bc.Method2(); // Base - Method2  (bc is BaseClass -- so Base method is used)
+			dc.Method1(); // Base - Method1  (dc is of type DerivedClass but the method is not yet overriden) ==
+			dc.Method2(); // Derived - Method2  (dc is of type DerivedClass and has Method2) ==
+			bcdc.Method1(); // Base - Method1  (bcdc is of type BaseClass, it can directly access Method1) ==
+			bcdc.Method2(); // Base - Method2  (bcdc is of type BaseClass, and Base.Method2 is not overriden ->
+							// DerivedClass will use Base method.
+							// Adding NEW suppresses the warning but does not changes output. This means: we understand and agree that
+							// DerivedClass will use the Base method (based on its Type, not value). Only DC can use the new method.
+			Console.WriteLine();
+
+			// with virtual in the BaseClass.Method1 and override in DerivedClass.Method1:
+			bc.Method1(); // Base - Method1  (bc is BaseClass) ==
+			bc.Method2(); // Base - Method2  (bc is BaseClass -- so Base method is used) ==
+			dc.Method1(); // Derived - Method1  (dc is of type DerivedClass so its overriden method is used)
+			dc.Method2(); // Derived - Method2  (dc is of type DerivedClass and has Method2) ==
+			bcdc.Method1(); // Derived - Method1  (bcdc is of type BaseClass, but there are overriden method in DerivedClass)
+			bcdc.Method2(); // Base - Method2  (bcdc is of type BaseClass, and Base.Method2 is not overriden -> DerivedClass uses Base method) ==
+			Console.WriteLine();
+
+			// trying to cast the types
+			// (bc as DerivedClass).Method1(); // System.NullReferenceException: (bc as DerivedClass) is null
+			// (bc as DerivedClass).Method2(); // System.NullReferenceException: (bc as DerivedClass) is null
+			(dc as BaseClass).Method1(); // "cast is unnecessary" warning -- this means that the behaviour of dc is still DerivedClass
+										 // Derived - Method1  (the cast is BaseClass but dc is of type DerivedClass so its overriden method is used)
+										 // the same as bcdc.Method1()
+			(dc as BaseClass).Method2(); // Base - Method2  (the cast is BaseClass, and Base.Method2 is not overriden -> using Base method)
+			
 		}
 
 		static void Main(string[] args)
@@ -1727,7 +1812,8 @@ Second Line";
 			// Лекция17(); // collections
 			// Лекция18(); // Lambdas, delegates, events
 			// Лекция20(); // SOLID, (de)serialization
-			Test();
+			// Test();
+			AfterTest();
 
 		} // Main
 	} // Program class
