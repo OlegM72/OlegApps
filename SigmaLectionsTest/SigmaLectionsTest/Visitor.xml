@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Visitor>
+	<Person>
+		<Name>Дяконюк Лілія</Name>
+		<Number>+380002184931</Number>
+	</Person>
+	<Company>
+		<Name>Microsoft</Name>
+		<RegNumber>MS32141324</RegNumber>
+		<Number>+13424131445</Number>
+	</Company>
+</Visitor>

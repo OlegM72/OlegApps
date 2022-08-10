@@ -9,6 +9,8 @@ using System.Collections.Concurrent; // потокобезпечні колек�
 using System.Linq;
 using System.Collections.Immutable;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml;
 
 namespace SigmaLectionsTest
 {
@@ -410,6 +412,45 @@ namespace SigmaLectionsTest
 		}
 	}
 
+	[DataContract]  // -- cannot be used for ISerializable classes
+	[Serializable]
+	class SerializableDictionary<TKey, TValue> //, ISerializable - it is already ISerializable
+	{
+
+		[DataMember]
+		public Dictionary<TKey, TValue> dictionary;
+
+        public SerializableDictionary() : base()
+        {
+			dictionary = new();
+		}
+
+		public new TValue this[TKey idx] 
+		{	
+			get => dictionary[idx]; 
+			set => dictionary[idx] = value;
+		}
+
+		protected SerializableDictionary(SerializationInfo info, StreamingContext context)
+		{
+			dictionary = (Dictionary<TKey, TValue>)info.GetValue("dictionary", typeof(Dictionary<TKey, TValue>));
+		}
+
+		public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			info.AddValue("dictionary", dictionary);
+		}
+
+		public override string ToString()
+		{
+			string result = "";
+			foreach (KeyValuePair<TKey, TValue> item in dictionary)
+            {
+				result += $"[{item.Key}]: {item.Value}\r\n";
+			}
+			return result;
+		}
+	}
 
 	class Program
 	{
@@ -881,7 +922,8 @@ Second Line";
 			}
 			public int CurrentSum { get { return _sum; } }
 			public int Percentage { get { return _percentage; } }
-			public void Put(int sum) {
+			public void Put(int sum)
+			{
 				_sum += sum;
 				if (Added != null)
 					// Added?.Invoke(this, new AccountEventArgs("На рахунок поступило " + sum, sum));
@@ -889,24 +931,30 @@ Second Line";
 				// это то же, что и 
 				// Added.Invoke("На рахунок поступило " + sum + ", маємо " + CurrentSum);
 			}
-			public void WithdrawWithDelegate(int sum) {
-				if (sum <= _sum) {
+			public void WithdrawWithDelegate(int sum)
+			{
+				if (sum <= _sum)
+				{
 					_sum -= sum;
 					if (del != null)
 						del("Сума " + sum + " знята з рахунку, маємо " + CurrentSum);
 				}
-				else {
+				else
+				{
 					if (del != null)
 						del("Недостатньо грошей на рахунку, маємо " + CurrentSum);
 				}
 			}
-			public void WithdrawWithEvent(int sum) {
-				if (sum <= _sum) {
+			public void WithdrawWithEvent(int sum)
+			{
+				if (sum <= _sum)
+				{
 					_sum -= sum;
 					if (Withdrowed != null)
 						Withdrowed("Сума " + sum + " знята з рахунку, маємо " + CurrentSum);
 				}
-				else {
+				else
+				{
 					if (Withdrowed != null)
 						Withdrowed("Недостатньо грошей на рахунку, маємо " + CurrentSum);
 				}
@@ -1572,7 +1620,7 @@ Second Line";
 		{
 			public void Dispose()
 			{
-				Console.WriteLine("Dispose");
+				Console.WriteLine("Dispose"); // this is called inside using {} because it contains try and finally blocks. catch is called after that
 			}
 		}
 
@@ -1612,8 +1660,11 @@ Second Line";
 		}
 
 		public static T[] ReverseArray<T>(T[] array)
-        {
+		{
 			return array.Select(item => item).Reverse().ToArray();
+			// или
+			// Array.Reverse(array);
+			// return array;
 			// или
 			// IEnumerable<T> list = from item in array select item;
 			// return list.Reverse().ToArray();
@@ -1697,7 +1748,7 @@ Second Line";
 				Console.WriteLine("Exception");
 			}
 			// Output:
-			// Dispose
+			// Dispose // this is called inside using {} because it contains try and finally blocks. catch is called after that
 			// Exception
 
 			SampleClass sampleClass = new SampleClass();
@@ -1728,16 +1779,20 @@ Second Line";
 		// testing override and new modificators for methods
 		// from https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/knowing-when-to-use-override-and-new-keywords
 
-		class BaseClass {
-			public virtual void Method1() {
+		class BaseClass
+		{
+			public virtual void Method1()
+			{
 				Console.WriteLine("Base - Method1");
 			}
-			public void Method2() { // can be virtual, but is not overriden -> DerivedClass will use Base method
+			public void Method2()
+			{ // can be virtual, but is not overriden -> DerivedClass will use Base method
 				Console.WriteLine("Base - Method2");
 			}
 		}
 
-		class DerivedClass : BaseClass {
+		class DerivedClass : BaseClass
+		{
 			public override void Method1()
 			{
 				Console.WriteLine("Derived - Method1");
@@ -1746,21 +1801,22 @@ Second Line";
 			// public void Method2() { // CS0108  "Program.DerivedClass.Method2()" скрывает наследуемый член "Program.BaseClass.Method2()".
 			// Если скрытие было намеренным, используйте ключевое слово new.
 			// (также можно переименовать один из методов, но это часто не является практичным)
-			public new void Method2() { // adding NEW suppresses the warning
+			public new void Method2()
+			{ // adding NEW suppresses the warning
 				Console.WriteLine("Derived - Method2");
 			}
 		}
 
 		public static void AfterTest()
-        {
+		{
 			// from https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/knowing-when-to-use-override-and-new-keywords
 
 			BaseClass bc = new BaseClass(); // bc is of type BaseClass, and its value is of type BaseClass.
 			DerivedClass dc = new DerivedClass(); // dc is of type DerivedClass, and its value is of type DerivedClass.
 			BaseClass bcdc = new DerivedClass(); // bcdc is of type BaseClass, and its value is of type DerivedClass created by its constructor
-			// DerivedClass dcbc = new BaseClass(); // this cannot be done since BaseClass is not inherited from DerivedClass,
-													// we cannot just use its Base constructor
-			// without virtual in the BaseClass.Method1 and override in DerivedClass.Method1:
+												 // DerivedClass dcbc = new BaseClass(); // this cannot be done since BaseClass is not inherited from DerivedClass,
+												 // we cannot just use its Base constructor
+												 // without virtual in the BaseClass.Method1 and override in DerivedClass.Method1:
 			bc.Method1(); // Base - Method1  (bc is BaseClass)
 			dc.Method1(); // Base - Method1  (dc is of type DerivedClass but the method is not yet overriden)
 			dc.Method2(); // Derived - Method2  (dc is of type DerivedClass and has Method2)
@@ -1798,9 +1854,1896 @@ Second Line";
 										 // Derived - Method1  (the cast is BaseClass but dc is of type DerivedClass so its overriden method is used)
 										 // the same as bcdc.Method1()
 			(dc as BaseClass).Method2(); // Base - Method2  (the cast is BaseClass, and Base.Method2 is not overriden -> using Base method)
-			
+
 		}
 
+		/// <summary>
+		/// This method shows that the first char is not written if Esc is pressed. The bug report was sent to MS
+		/// This does not work on every computer. Maybe depends on C# or .NET version, or the keyboard used.
+		/// </summary>
+		static public void ПропаданиеСимвола()
+		{
+			do
+			{
+				Console.Clear();
+				Console.Write("This is a text test. Press Esc to test and Enter to exit");
+
+				ConsoleKey c = Console.ReadKey().Key;
+				if (c == ConsoleKey.Enter) break;
+			}
+			while (true);
+		}
+		/// <summary>
+		/// Someone (MS?) said that Dictionary cannot be (de)serialized via DataContract. I show this is wrong
+		/// </summary>
+		static public void DictionarySerialization()
+		{
+			SerializableDictionary<int, string> serializableDictionary = new();
+			serializableDictionary[1] = "String 1";
+			serializableDictionary[2] = "String 2";
+			serializableDictionary[3] = "String 3";
+			serializableDictionary[4] = "String 4";
+			Console.WriteLine("Original dictionary is:");
+			Console.WriteLine(serializableDictionary);
+
+			/*
+			try
+			{
+				const string binarySerializationFileName = "../../../DictionarySerialization.bin";
+				Console.WriteLine("\r\nBinary serialization of the dictionary. See " + binarySerializationFileName);
+				IFormatter formatter = new BinaryFormatter();
+				BinarySerialize(serializableDictionary, binarySerializationFileName, formatter);
+
+				Console.WriteLine("\r\nBinary deserialization of the dictionary.");
+				SerializableDictionary<int, string> deserializedDictionary =
+							BinaryDeserialize<SerializableDictionary<int, string>>(binarySerializationFileName, formatter);
+				Console.WriteLine("The deserialized dictionary is:");
+				Console.WriteLine(deserializedDictionary);
+			}
+			catch (SerializationException serExc)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("Serialization failed: " + serExc.Message);
+			}
+			catch (Exception ex)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine(ex.Message);
+				Console.ResetColor();
+			}
+
+			/* An object cannot be ISerializable AND have DataContract attribute.
+			   (but Dictionary is already ISerializable) */
+			try
+			{
+				const string dataContractFileName = "../../../DictionaryDataContract.xml";
+				Console.WriteLine("\r\nDataContract serialization of the dictionary. See " + dataContractFileName);
+				WriteDataContractObject(serializableDictionary, dataContractFileName);
+
+				Console.WriteLine("\r\nDataContract deserialization of the dictionary.");
+				SerializableDictionary<int, string> deserializedDictionary =
+					ReadDataContractObject<SerializableDictionary<int, string>>(dataContractFileName);
+				Console.WriteLine("The deserialized dictionary is:");
+				Console.WriteLine(deserializedDictionary);
+			}
+			catch (SerializationException serExc)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("Serialization failed: " + serExc.Message);
+			}
+			catch (Exception ex)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine(ex.Message);
+				Console.ResetColor();
+			}
+		}
+
+		public static void BinarySerialize<T>(T whatToWrite, string fileName, IFormatter formatter)
+		{
+			using (FileStream stream = new FileStream(fileName, FileMode.Create))
+				formatter.Serialize(stream, whatToWrite);
+		}
+
+		public static T BinaryDeserialize<T>(string fileName, IFormatter formatter)
+		// Deserialization of an object using Binary or Soap formatter
+		{
+			using (FileStream stream = new FileStream(fileName, FileMode.Open))
+				return (T)formatter.Deserialize(stream);
+		}
+
+
+		public static void WriteDataContractObject<T>(T whatToWrite, string fileName)
+		// DataContract (XML) Serialization of an object with type T
+		{
+			using (FileStream stream = new(fileName, FileMode.Create))
+			{
+				DataContractSerializer serializer = new(typeof(T));
+				serializer.WriteObject(stream, whatToWrite);
+			}
+		}
+
+		public static T ReadDataContractObject<T>(string fileName)
+		// DataContract (XML) Deserialization: returns an object of type T
+		{
+			using (FileStream fileReader = new FileStream(fileName, FileMode.Open))
+			using (XmlDictionaryReader XMLreader =
+				XmlDictionaryReader.CreateTextReader(fileReader, new XmlDictionaryReaderQuotas()))
+			{
+				DataContractSerializer serializer = new DataContractSerializer(typeof(T));
+				return (T)serializer.ReadObject(XMLreader, true);
+			}
+		}
+
+		#region Patterns
+		public class Singleton
+		{
+			// Declaring the instance
+			private static Singleton instance;
+			// The constructor is private 
+			private Singleton()
+			{
+			}
+			// Initializing the instance on the first call,
+			// this is not the recommended way, the code will 
+			// fail in multi-threading environment
+			// The Global Access Point to the instance
+			public static Singleton Instance()
+			{
+				if (instance == null)
+				{
+					instance = new Singleton();
+				}
+				return instance;
+			}
+		}
+
+		public class LazySingleton
+		{
+			private static readonly Lazy<LazySingleton> lazy =
+			new Lazy<LazySingleton>(() => new LazySingleton());
+
+			public string Name { get; private set; }
+
+			private LazySingleton()
+			{
+				Name = System.Guid.NewGuid().ToString();
+			}
+
+			public static LazySingleton GetInstance()
+			{
+				LazySingleton check = lazy.Value;
+				return check; // lazy.IsValueCreated = true, lazy.IsValueFaulted = false, check.Name != null
+			}
+		}
+
+		abstract class AbstractFactory
+		{
+			public abstract AbstractProductA CreateProductA();
+			public abstract AbstractProductB CreateProductB();
+		}
+		class ConcreteFactory1 : AbstractFactory
+		{
+			public override AbstractProductA CreateProductA()
+			{
+				return new ProductA1();
+			}
+
+			public override AbstractProductB CreateProductB()
+			{
+				return new ProductB1();
+			}
+		}
+		class ConcreteFactory2 : AbstractFactory
+		{
+			public override AbstractProductA CreateProductA()
+			{
+				return new ProductA2();
+			}
+
+			public override AbstractProductB CreateProductB()
+			{
+				return new ProductB2();
+			}
+		}
+
+		abstract class AbstractProductA
+		{ }
+
+		abstract class AbstractProductB
+		{ }
+
+		class ProductA1 : AbstractProductA
+		{ }
+
+		class ProductB1 : AbstractProductB
+		{ }
+
+		class ProductA2 : AbstractProductA
+		{ }
+
+		class ProductB2 : AbstractProductB
+		{ }
+
+		class Client
+		{
+			private AbstractProductA abstractProductA;
+			private AbstractProductB abstractProductB;
+
+			public Client(AbstractFactory factory)
+			{
+				abstractProductB = factory.CreateProductB();
+				abstractProductA = factory.CreateProductA();
+			}
+
+			public AbstractProductA GetProductA() => abstractProductA;
+			public AbstractProductB GetProductB() => abstractProductB;
+
+			public void Run()
+			{
+				
+			}
+		}
+
+		public class Laptop
+        {
+			public string MonitorResolution { get; set; }
+			public string Processor { get; set; }
+			public string Memory { get; set; }
+			public string HDD { get; set; }
+			public string Battery { get; set; }
+
+			public override string ToString()
+			{
+				return MonitorResolution + ", " + Processor + ", " + Memory + ", " + HDD + ", " + Battery;
+			}
+		}
+
+		abstract class LaptopBuilder
+		{
+			protected Laptop Laptop { get; private set; }
+			public void CreateNewLaptop() { Laptop = new Laptop(); }
+			// Метод, який повертає готовий ноутбук назовні
+			public Laptop GetMyLaptop() { return Laptop; }
+			// Кроки, необхідні щоб створити ноутбук 
+			public abstract void SetMonitorResolution();
+			public abstract void SetProcessor();
+			public abstract void SetMemory();
+			public abstract void SetHDD();
+			public abstract void SetBattery();
+		}
+
+		// Таким будівельником може бути працівник, що
+		// спеціалізується у складанні «геймерських» ноутів 
+		class GamingLaptopBuilder : LaptopBuilder
+		{
+			public override void SetMonitorResolution()
+			{
+				Laptop.MonitorResolution = "1900X1200";
+			}
+			public override void SetProcessor()
+			{
+				Laptop.Processor = "Core 2 Duo, 3.2 GHz";
+			}
+			public override void SetMemory()
+			{
+				Laptop.Memory = "6144 Mb";
+			}
+			public override void SetHDD()
+			{
+				Laptop.HDD = "500 Gb";
+			}
+			public override void SetBattery()
+			{
+				Laptop.Battery = "6 lbs";
+			}
+		}
+
+		// А ось інший «збирач» ноутів
+		class TripLaptopBuilder : LaptopBuilder
+		{
+			public override void SetMonitorResolution()
+			{
+				Laptop.MonitorResolution = "1200X800";
+			}
+			public override void SetBattery()
+            {
+				//.. і так далі... 
+			}
+
+			public override void SetHDD()
+            {
+				//.. і так далі... 
+			}
+
+			public override void SetMemory()
+            {
+				//.. і так далі... 
+			}
+
+			public override void SetProcessor()
+			{
+				//.. і так далі... 
+			}
+		}
+
+		// Ваша система може мати багато конкретних будівельників
+
+		class BuyLaptop
+		{
+			private LaptopBuilder _laptopBuilder;
+			public void SetLaptopBuilder(LaptopBuilder lBuilder)
+			{
+				_laptopBuilder = lBuilder;
+			}
+			// Змушує будівельника повернути цілий ноутбук
+			public Laptop GetLaptop()
+			{
+				return _laptopBuilder.GetMyLaptop();
+			}
+			// Змушує будівельника додавати деталі 
+			public void ConstructLaptop()
+			{
+				_laptopBuilder.CreateNewLaptop();
+				_laptopBuilder.SetMonitorResolution();
+				_laptopBuilder.SetProcessor();
+				_laptopBuilder.SetMemory();
+				_laptopBuilder.SetHDD();
+				_laptopBuilder.SetBattery();
+			}
+		}
+
+		// Factory Method
+
+		// абстрактный клас будівельної компанії
+		abstract class Developer
+		{
+			public string Name { get; set; }
+
+			public Developer(string n)
+			{
+				Name = n;
+			}
+			// фабричний метод
+			abstract public House Create();
+		}
+
+		// будує панельні будинки
+		class PanelDeveloper : Developer
+		{
+			public PanelDeveloper(string n) : base(n)
+			{ }
+
+			public override House Create()
+			{
+				return new PanelHouse();
+			}
+		}
+		// будує дерев’яні будинки
+		class WoodDeveloper : Developer
+		{
+			public WoodDeveloper(string n) : base(n)
+			{ }
+
+			public override House Create()
+			{
+				return new WoodHouse();
+			}
+		}
+
+		abstract class House
+		{ }
+
+		class PanelHouse : House
+		{
+			public PanelHouse()
+			{
+				Console.WriteLine("Панельний дім побудований");
+			}
+		}
+		class WoodHouse : House
+		{
+			public WoodHouse()
+			{
+				Console.WriteLine("Дерев’яний дім побудований");
+			}
+		}
+
+		// Prototype
+
+		interface IFigure
+		{
+			IFigure Clone();
+			void GetInfo();
+		}
+
+		class Rectangle : IFigure
+		{
+			int width;
+			int height;
+			public Rectangle(int w, int h)
+			{
+				width = w;
+				height = h;
+			}
+
+			public IFigure Clone()
+			{
+				// return (Rectangle)this.MemberwiseClone();
+				return new Rectangle(this.width, this.height);
+			}
+			public void GetInfo()
+			{
+				Console.WriteLine("Прямокутник з довжиною {0} і шириною {1}", height, width);
+			}
+		}
+
+		class Circle : IFigure
+		{
+			int radius;
+			public Circle(int r)
+			{
+				radius = r;
+			}
+
+			public IFigure Clone()
+			{
+				// return (Circle)this.MemberwiseClone();
+				return new Circle(this.radius);
+			}
+			public void GetInfo()
+			{
+				Console.WriteLine("Круг з радіусом {0}", radius);
+			}
+		}
+
+		// класс, к которому надо адаптировать другой класс   
+		class Target
+		{
+			public virtual void Request() { Console.WriteLine("Target Request"); }
+		}
+
+		// Адаптер
+		class Adapter : Target
+		{
+			private Adaptee adaptee = new Adaptee(); // Adapter knows about Adaptee and its method
+
+			public override void Request()  // the method overrides the base method (that should be VIRTUAL)
+											// or we can make a "new" Request method and call Adapter.Request
+			{
+				adaptee.SpecificRequest();   // and calls it when the the Target Request method is called
+			}
+
+			public void AdaptedRequest() // if the base method is not virtual we can create new with new parameters/view
+            {
+				adaptee.SpecificRequest(); // different parameters or in different order could be here
+			}
+		}
+
+		// Адаптируемый класс
+		class Adaptee
+		{
+			public void SpecificRequest() { Console.WriteLine("Specific Request"); }
+		}
+
+		// Decorator
+
+		public interface ICake
+		{
+			public string ingredients();
+			public double price();
+		}
+		public abstract class CakeDecorator : ICake
+		{
+			protected ICake cake;
+			public CakeDecorator(ICake cake)
+			{
+				this.cake = cake;
+			}
+			public abstract string ingredients();
+			public abstract double price();
+
+		}
+		public class SimpleCake : ICake
+		{
+			public string ingredients()
+			{
+				return "Простий торт";
+			}
+			public double price()
+			{
+				return 12.5;
+			}
+		}
+		public class WithWhippedCream : CakeDecorator
+		{
+            public WithWhippedCream(ICake cake) : base(cake) { }
+
+            public override string ingredients()
+			{
+				return this.cake.ingredients() + " з вершками";
+			}
+			public override double price()
+			{
+				return this.cake.price() + 2.5;
+			}
+		}
+		public class WithSprinkles : CakeDecorator
+		{
+            public WithSprinkles(ICake cake) : base(cake) { }
+
+            public override string ingredients()
+			{
+				return this.cake.ingredients() + " з присипкою";
+			}
+			public override double price()
+			{
+				return this.cake.price() + 1.25;
+			}
+		}
+
+		// Facade
+
+		class Compiler
+		{
+			public void Compile()
+			{
+				Console.WriteLine("Компіляція застосунку");
+			}
+		}
+		class TextEditor
+		{
+			public void CreateCode()
+			{
+				Console.WriteLine("Створення коду");
+			
+}
+			public void Save()
+			{
+				Console.WriteLine("Збереження коду");
+			
+}
+		}
+		class CLR
+		{
+			public void Execute()
+			{
+				Console.WriteLine("Виконання додатку");
+			
+}
+			public void Finish()
+			{
+				Console.WriteLine("Завершення роботи додатку");
+			}
+		}
+		class VisualStudioFacade
+		{
+			TextEditor textEditor;
+			Compiler compiler;
+			CLR clr;
+			public VisualStudioFacade(TextEditor te, Compiler compil, CLR clr)
+			{
+				this.textEditor = te;
+				this.compiler = compil;
+				this.clr = clr;
+			}
+			public void Start()
+			{
+				textEditor.CreateCode();
+				textEditor.Save();
+				compiler.Compile();
+				clr.Execute();
+			}
+			public void Stop()
+			{
+				clr.Finish();
+			}
+		}
+
+		class Programmer
+		{
+			public void CreateApplication(VisualStudioFacade facade)
+			{
+				facade.Start();
+				facade.Stop();
+			}
+		}
+
+		// Proxy
+
+		abstract class Subject
+		{
+			public abstract void Request();
+		}
+
+		class RealSubject : Subject
+		{
+			public override void Request() { Console.WriteLine("RealSubject Request"); }
+		}
+		class Proxy : Subject
+		{
+			RealSubject realSubject;
+			public override void Request()
+			{
+				Console.WriteLine("Proxy Request start");
+				if (realSubject == null)
+					realSubject = new RealSubject();
+				realSubject.Request();
+				Console.WriteLine("Proxy Request end");
+			}
+		}
+
+		class Page
+		{
+			public int Id { get; set; }
+			public int Number { get; set; }
+			public string Text { get; set; }
+
+            public Page(int id, int num, string text)
+            {
+				Id = id;
+				Number = num;
+				Text = text;
+            }
+		}
+		class PageContext // : DbContext
+		{
+			// public DbSet<Page> Pages { get; set; }
+			public List<Page> Pages { get; set; }
+            public PageContext(List<Page> pages)
+            {
+				Pages = pages;
+            }
+			public void Dispose() { }
+		}
+		interface IBook : IDisposable
+		{
+			Page GetPage(int number);
+		}
+
+		class BookStore : IBook
+		{
+			PageContext db;
+			public BookStore()
+			{
+				List<Page> pages = new();
+				pages.Add(new Page(1001, 1, "Page 1"));
+				pages.Add(new Page(1002, 2, "Page 2"));
+				pages.Add(new Page(1003, 3, "Page 3"));
+				db = new PageContext(pages);
+			}
+			public Page GetPage(int number)
+			{
+				return db.Pages.FirstOrDefault(p => p.Number == number);
+			}
+
+			public void Dispose()
+			{
+				db.Dispose();
+			}
+		}
+
+		class BookStoreProxy : IBook
+		{
+			List<Page> pages;
+			BookStore bookStore;
+			public BookStoreProxy()
+			{
+				pages = new List<Page>();
+			}
+			public Page GetPage(int number)
+			{
+				Page page = pages.FirstOrDefault(p => p.Number == number);
+				if (page == null)
+				{
+					if (bookStore == null)
+						bookStore = new BookStore();
+					page = bookStore.GetPage(number);
+					pages.Add(page);
+					Console.WriteLine("Page " + number + " added to proxy list");
+				}
+				else
+					Console.WriteLine("Page " + number + " taken from proxy list");
+				return page;
+			}
+
+			public void Dispose()
+			{
+				if (bookStore != null)
+					bookStore.Dispose();
+			}
+		}
+
+		// Visitor
+
+		interface IVisitor
+		{
+			void VisitPersonAcc(Person acc);
+			void VisitCompanyAc(Company acc);
+		}
+
+		// серіалізатор в HTML
+		class HtmlVisitor : IVisitor
+		{
+			public void VisitPersonAcc(Person acc)
+			{
+				string result = "<table><tr><td>Властивість<td><td>Значення</td></tr>";
+				result += "<tr><td>Name<td><td>" + acc.Name + "</td></tr>";
+				result += "<tr><td>Number<td><td>" + acc.Number + "</td></tr></table>";
+				Console.WriteLine(result);
+			}
+
+			public void VisitCompanyAc(Company acc)
+			{
+				string result = "<table><tr><td>Властивість<td><td>Значення</td></tr>";
+				result += "<tr><td>Name<td><td>" + acc.Name + "</td></tr>";
+				result += "<tr><td>RegNumber<td><td>" + acc.RegNumber + "</td></tr>";
+				result += "<tr><td>Number<td><td>" + acc.Number + "</td></tr></table>";
+				Console.WriteLine(result);
+			}
+		}
+
+		// серіалізатор в XML
+		class XmlVisitor : IVisitor
+		{
+			public void VisitPersonAcc(Person acc)
+			{
+				string result = "<Person><Name>" + acc.Name + "</Name>" +
+				"<Number>" + acc.Number + "</Number></Person>";
+				Console.WriteLine(result);
+			}
+
+			public void VisitCompanyAc(Company acc)
+			{
+				string result = "<Company><Name>" + acc.Name + "</Name>" +
+				"<RegNumber>" + acc.RegNumber + "</RegNumber>" +
+				"<Number>" + acc.Number + "</Number></Company>";
+				Console.WriteLine(result);
+			}
+		}
+
+		class Bank
+		{
+			List<IAccount> accounts = new List<IAccount>();
+			public void Add(IAccount acc)
+			{
+				accounts.Add(acc);
+			}
+			public void Remove(IAccount acc)
+			{
+				accounts.Remove(acc);
+			}
+			public void Accept(IVisitor visitor)
+			{
+				foreach (IAccount acc in accounts)
+					acc.Accept(visitor);
+			}
+		}
+
+		interface IAccount
+		{
+			void Accept(IVisitor visitor);
+		}
+
+		class Person : IAccount
+		{
+			public string Name { get; set; }
+			public string Number { get; set; }
+
+			public void Accept(IVisitor visitor)
+			{
+				visitor.VisitPersonAcc(this);
+			}
+		}
+
+		class Company : IAccount
+		{
+			public string Name { get; set; }
+			public string RegNumber { get; set; }
+			public string Number { get; set; }
+
+			public void Accept(IVisitor visitor)
+			{
+				visitor.VisitCompanyAc(this);
+			}
+		}
+
+		// Mediator
+
+		abstract class Mediator
+		{
+			public abstract void Send(string msg, Colleague colleague);
+		}
+
+		abstract class Colleague
+		{
+			protected Mediator mediator;
+
+			public Colleague(Mediator mediator)
+			{
+				this.mediator = mediator;
+			}
+
+			public virtual void Send(string message)
+			{
+				mediator.Send(message, this);
+			}
+			public abstract void Notify(string message);
+		}
+
+		// класс замовника
+		class CustomerColleague : Colleague
+		{
+			public CustomerColleague(Mediator mediator)
+			: base(mediator)
+			{ }
+
+			public override void Notify(string message)
+			{
+				Console.WriteLine("Повідомлення замовнику: " + message);
+			}
+		}
+		// клас програміста
+		class ProgrammerColleague : Colleague
+		{
+			public ProgrammerColleague(Mediator mediator)
+			: base(mediator)
+			{ }
+
+			public override void Notify(string message)
+			{
+				Console.WriteLine("Повідомлення програмісту: " + message);
+			}
+		}
+		// клас тестера
+		class TesterColleague : Colleague
+		{
+			public TesterColleague(Mediator mediator)
+			: base(mediator)
+			{ }
+
+			public override void Notify(string message)
+			{
+				Console.WriteLine("Повідомлення тестеру: " + message);
+			}
+		}
+
+		class ManagerMediator : Mediator
+		{
+			public Colleague Customer { get; set; }
+			public Colleague Programmer { get; set; }
+			public Colleague Tester { get; set; }
+			public override void Send(string msg, Colleague colleague)
+			{
+				// якщо відпрвник - замовник, значить є нове змовлення
+				// відправляємо повідомлення програмісту – виконати замовлення 
+				if (Customer == colleague)
+					Programmer.Notify(msg);
+				// якщо відправник- програміст, то можно приступати до тестування 
+				// відправляємо повідомлення тестеру
+				else if (Programmer == colleague)
+					Tester.Notify(msg);
+				// якщо відправник - тестер,то продукт готовий
+				// відправляємо повідомлення замовнику.
+				else if (Tester == colleague)
+					Customer.Notify(msg);
+			}
+		}
+
+		// Strategy
+
+		interface IMovable
+		{
+			void Move();
+		}
+
+		class PetrolMove : IMovable
+		{
+			public void Move()
+			{
+				Console.WriteLine("Переміщення на бензині");
+			}
+		}
+
+		class ElectricMove : IMovable
+		{
+			public void Move()
+			{
+				Console.WriteLine("Переміщення на електриці");
+			}
+		}
+		class Auto
+		{
+			protected int passengers; // кількість пасажирів
+			protected string model; // модель автомобіля
+			public IMovable Movable { private get; set; } // тип переміщення
+
+			public Auto(int num, string model, IMovable mov)
+			{
+				this.passengers = num;
+				this.model = model;
+				Movable = mov;
+			}
+			public void Move()
+			{
+				Movable.Move();
+			}
+		}
+
+		// Chain of Responsibility
+
+		class Receiver
+		{
+			// банківські переведення
+			public bool BankTransfer { get; set; }
+			// грошові переведення- WesternUnion, Unistream
+			public bool MoneyTransfer { get; set; }
+			// переведення через PayPal
+			public bool PayPalTransfer { get; set; }
+			public Receiver(bool bt, bool mt, bool ppt)
+			{
+				BankTransfer = bt;
+				MoneyTransfer = mt;
+				PayPalTransfer = ppt;
+			}
+		}
+		abstract class PaymentHandler
+		{
+			public PaymentHandler Successor { get; set; }
+			public abstract void Handle(Receiver receiver);
+		}
+
+		class BankPaymentHandler : PaymentHandler
+		{
+			public override void Handle(Receiver receiver)
+			{
+				if (receiver.BankTransfer == true)
+					Console.WriteLine("Виконуємо банківське переведення");
+					else if (Successor != null)
+					Successor.Handle(receiver);
+			}
+		}
+
+		class PayPalPaymentHandler : PaymentHandler
+		{
+			public override void Handle(Receiver receiver)
+			{
+				if (receiver.PayPalTransfer == true)
+					Console.WriteLine("Виконуємо переведення через PayPal");
+				else if (Successor != null)
+					Successor.Handle(receiver);
+			}
+		}
+		// переведення з допомою грошових систем 
+		class MoneyPaymentHandler : PaymentHandler
+		{
+			public override void Handle(Receiver receiver)
+			{
+				if (receiver.MoneyTransfer == true)
+					Console.WriteLine("Виконуємо переведення через системи грошових переводів");
+				else if (Successor != null)
+					Successor.Handle(receiver);
+			}
+		}
+
+		// NEW (BEHAVIOURAL)
+		// Observer (Publisher - Subscriber)
+		interface IObservable
+		{
+			void RegisterObserver(IObserver o);
+			void RemoveObserver(IObserver o);
+			void NotifyObservers();
+		}
+		class Stock : IObservable
+		{
+			StockInfo sInfo; // информация о торгах
+			private List<IObserver> observers;
+			public Stock()
+			{
+				observers = new List<IObserver>();
+				sInfo = new StockInfo();
+			}
+			public void RegisterObserver(IObserver o)
+			{
+				observers.Add(o);
+			}
+
+			public void RemoveObserver(IObserver o)
+			{
+				observers.Remove(o);
+			}
+
+			public void NotifyObservers()
+			{
+				foreach (IObserver observer in observers)
+					observer.Update(sInfo);
+			}
+			public void Market()
+			{
+				Random rnd = new Random();
+				sInfo.USD = rnd.Next(20, 40);
+				sInfo.Euro = rnd.Next(30, 50);
+				NotifyObservers();
+			}
+		}
+		class StockInfo
+		{
+			public int USD { get; set; }
+			public int Euro { get; set; }
+		}
+		interface IObserver
+		{
+			void Update(Object ob);
+		}
+		class BrokerObserver : IObserver
+		{
+			public string Name { get; set; }
+			IObservable stock;
+			public BrokerObserver(string name, IObservable obs)
+			{
+				this.Name = name;
+				stock = obs;
+				stock.RegisterObserver(this);
+			}
+			public void Update(object ob)
+			{
+				StockInfo sInfo = (StockInfo)ob;
+
+				if (sInfo.USD > 30)
+					Console.WriteLine("Брокер {0} продает доллары;  Курс доллара: {1}", this.Name, sInfo.USD);
+				else
+					Console.WriteLine("Брокер {0} покупает доллары;  Курс доллара: {1}", this.Name, sInfo.USD);
+			}
+			public void StopTrade()
+			{
+				stock.RemoveObserver(this);
+				stock = null;
+			}
+		}
+		class BankObserver : IObserver
+		{
+			public string Name { get; set; }
+			IObservable stock;
+			public BankObserver(string name, IObservable obs)
+			{
+				this.Name = name;
+				stock = obs;
+				stock.RegisterObserver(this);
+			}
+			public void Update(object ob)
+			{
+				StockInfo sInfo = (StockInfo)ob;
+
+				if (sInfo.Euro > 40)
+					Console.WriteLine("Банк {0} продает евро;  Курс евро: {1}", this.Name, sInfo.Euro);
+				else
+					Console.WriteLine("Банк {0} покупает евро;  Курс евро: {1}", this.Name, sInfo.Euro);
+			}
+		}
+
+		// Template Method
+
+		abstract class Education
+		{
+			public void Learn()
+			{
+				Enter();
+				Study();
+				PassExams();
+				GetDocument();
+			}
+			public abstract void Enter();
+			public abstract void Study();
+			public virtual void PassExams()
+			{
+				Console.WriteLine("Сдаем выпускные экзамены");
+			}
+			public abstract void GetDocument();
+		}
+
+		class School : Education
+		{
+			// public new void Learn() { Console.WriteLine("Не хочу учиться"); }
+
+			public override void Enter()
+			{
+				Console.WriteLine("Идем в первый класс");
+			}
+
+			public override void Study()
+			{
+				Console.WriteLine("Посещаем уроки, делаем домашние задания");
+			}
+
+			public override void GetDocument()
+			{
+				Console.WriteLine("Получаем аттестат о среднем образовании");
+			}
+		}
+
+		class University : Education
+		{
+			public override void Enter()
+			{
+				Console.WriteLine("Сдаем вступительные экзамены и поступаем в ВУЗ");
+			}
+
+			public override void Study()
+			{
+				Console.WriteLine("Посещаем лекции");
+				Console.WriteLine("Проходим практику");
+			}
+
+			public override void PassExams()
+			{
+				Console.WriteLine("Сдаем экзамен по специальности");
+			}
+
+			public override void GetDocument()
+			{
+				Console.WriteLine("Получаем диплом о высшем образовании");
+			}
+		}
+
+
+		// Iterator
+
+		class Reader
+		{
+			public void SeeBooks(Library library)
+			{
+				IBookIterator iterator = library.CreateNumerator();
+				while (iterator.HasNext())
+				{
+					Book book = iterator.Next();
+					Console.WriteLine(book.Name);
+				}
+			}
+		}
+
+		interface IBookIterator
+		{
+			bool HasNext();
+			Book Next();
+		}
+		interface IBookNumerable
+		{
+			IBookIterator CreateNumerator();
+			int Count { get; }
+			Book this[int index] { get; }
+		}
+		class Book
+		{
+			public string Name { get; set; }
+		}
+
+		class Library : IBookNumerable
+		{
+			private Book[] books;
+			public Library()
+			{
+				books = new Book[]
+				{
+			new Book{Name="Война и мир"},
+			new Book {Name="Отцы и дети"},
+			new Book {Name="Вишневый сад"}
+				};
+			}
+			public int Count
+			{
+				get { return books.Length; }
+			}
+
+			public Book this[int index]
+			{
+				get { return books[index]; }
+			}
+			public IBookIterator CreateNumerator()
+			{
+				return new LibraryNumerator(this);
+			}
+		}
+		class LibraryNumerator : IBookIterator
+		{
+			IBookNumerable aggregate;
+			int index = 0;
+			public LibraryNumerator(IBookNumerable a)
+			{
+				aggregate = a;
+			}
+			public bool HasNext()
+			{
+				return index < aggregate.Count;
+			}
+
+			public Book Next()
+			{
+				return aggregate[index++];
+			}
+		}
+
+		// State
+
+		class Water
+		{
+			public IWaterState State { get; set; }
+			public Water(IWaterState ws)
+			{
+				State = ws;
+			}
+
+			public void Heat()
+			{
+				State.Heat(this);
+			}
+			public void Frost()
+			{
+				State.Frost(this);
+			}
+		}
+
+		interface IWaterState
+		{
+			void Heat(Water water);
+			void Frost(Water water);
+		}
+
+		class SolidWaterState : IWaterState
+		{
+			public void Heat(Water water)
+			{
+				Console.WriteLine("Превращаем лед в жидкость");
+				water.State = new LiquidWaterState();
+			}
+
+			public void Frost(Water water)
+			{
+				Console.WriteLine("Продолжаем заморозку льда");
+			}
+		}
+		class LiquidWaterState : IWaterState
+		{
+			public void Heat(Water water)
+			{
+				Console.WriteLine("Превращаем жидкость в пар");
+				water.State = new GasWaterState();
+			}
+
+			public void Frost(Water water)
+			{
+				Console.WriteLine("Превращаем жидкость в лед");
+				water.State = new SolidWaterState();
+			}
+		}
+		class GasWaterState : IWaterState
+		{
+			public void Heat(Water water)
+			{
+				Console.WriteLine("Повышаем температуру водяного пара");
+			}
+
+			public void Frost(Water water)
+			{
+				Console.WriteLine("Превращаем водяной пар в жидкость");
+				water.State = new LiquidWaterState();
+			}
+		}
+
+		// Memento
+
+		// Originator
+		class Hero
+		{
+			private int patrons = 10; // кол-во патронов
+			private int lives = 5; // кол-во жизней
+
+			public void Shoot()
+			{
+				if (patrons > 0)
+				{
+					patrons--;
+					Console.WriteLine("Производим выстрел. Осталось {0} патронов", patrons);
+				}
+				else
+					Console.WriteLine("Патронов больше нет");
+			}
+			// сохранение состояния
+			public HeroMemento SaveState()
+			{
+				Console.WriteLine("Сохранение игры. Параметры: {0} патронов, {1} жизней", patrons, lives);
+				return new HeroMemento(patrons, lives);
+			}
+
+			// восстановление состояния
+			public void RestoreState(HeroMemento memento)
+			{
+				this.patrons = memento.Patrons;
+				this.lives = memento.Lives;
+				Console.WriteLine("Восстановление игры. Параметры: {0} патронов, {1} жизней", patrons, lives);
+			}
+		}
+		// Memento
+		class HeroMemento
+		{
+			public int Patrons { get; private set; }
+			public int Lives { get; private set; }
+
+			public HeroMemento(int patrons, int lives)
+			{
+				this.Patrons = patrons;
+				this.Lives = lives;
+			}
+		}
+
+		// Caretaker
+		class GameHistory
+		{
+			public Stack<HeroMemento> History { get; private set; }
+			public GameHistory()
+			{
+				History = new Stack<HeroMemento>();
+			}
+		}
+
+		// NEW STRUCTURAL
+
+		// Composite
+
+		abstract class Component2
+		{
+			protected string name;
+
+			public Component2(string name)
+			{
+				this.name = name;
+			}
+
+			public virtual void Add(Component2 component) { }
+
+			public virtual void Remove(Component2 component) { }
+
+			public virtual void Print()
+			{
+				Console.WriteLine(name);
+			}
+		}
+		class Directory : Component2
+		{
+			private List<Component2> components = new();
+
+			public Directory(string name)
+				: base(name)
+			{
+			}
+
+			public override void Add(Component2 component)
+			{
+				components.Add(component);
+			}
+
+			public override void Remove(Component2 component)
+			{
+				components.Remove(component);
+			}
+
+			public override void Print()
+			{
+				Console.WriteLine("Узел " + name);
+				Console.WriteLine("Подузлы:");
+				for (int i = 0; i < components.Count; i++)
+				{
+					Console.Write("\t");
+					components[i].Print();
+				}
+			}
+		}
+
+		class FileComponent : Component2
+		{
+			public FileComponent(string name)
+					: base(name)
+			{ }
+		}
+
+		// Bridge
+
+		interface ILanguage // Implementor
+		{
+			void Build();
+			void Execute();
+		}
+
+		class CPPLanguage : ILanguage
+		{
+			public void Build()
+			{
+				Console.WriteLine("С помощью компилятора C++ компилируем программу в бинарный код");
+			}
+
+			public void Execute()
+			{
+				Console.WriteLine("Запускаем исполняемый файл программы");
+			}
+		}
+
+		class CSharpLanguage : ILanguage
+		{
+			public void Build()
+			{
+				Console.WriteLine("С помощью компилятора Roslyn компилируем исходный код в файл exe");
+			}
+
+			public void Execute()
+			{
+				Console.WriteLine("JIT компилирует программу в бинарный код");
+				Console.WriteLine("CLR выполняет скомпилированный бинарный код");
+			}
+		}
+
+		abstract class Programmer2 // Abstraction
+		{
+			protected ILanguage language;
+			public ILanguage Language
+			{
+				set { language = value; }
+			}
+			public Programmer2(ILanguage lang)
+			{
+				language = lang;
+			}
+			public virtual void DoWork()
+			{
+				language.Build();
+				language.Execute();
+			}
+			public abstract void EarnMoney();
+		}
+
+		class FreelanceProgrammer : Programmer2
+		{
+			public FreelanceProgrammer(ILanguage lang) : base(lang)
+			{
+			}
+			public override void EarnMoney()
+			{
+				Console.WriteLine("Получаем оплату за выполненный заказ");
+			}
+		}
+		class CorporateProgrammer : Programmer2
+		{
+			public CorporateProgrammer(ILanguage lang)
+				: base(lang)
+			{
+			}
+			public override void EarnMoney()
+			{
+				Console.WriteLine("Получаем в конце месяца зарплату");
+			}
+		}
+
+		// Flyweight
+
+		abstract class House2
+		{
+			protected int stages; // количество этажей
+
+			public abstract void Build(double longitude, double latitude);
+		}
+
+		class PanelHouse2 : House2
+		{
+			public PanelHouse2()
+			{
+				stages = 16;
+			}
+
+			public override void Build(double longitude, double latitude)
+			{
+				Console.WriteLine("Построен панельный дом из {0} этажей; координаты: {1:n2} широты и {2:n2} долготы",
+					stages, latitude, longitude);
+			}
+		}
+		class BrickHouse : House2
+		{
+			public BrickHouse()
+			{
+				stages = 5;
+			}
+
+			public override void Build(double longitude, double latitude)
+			{
+				Console.WriteLine("Построен кирпичный дом из {0} этажей; координаты: {1:n2} широты и {2:n2} долготы",
+					stages, latitude, longitude);
+			}
+		}
+
+		class HouseFactory
+		{
+			Dictionary<string, House2> houses = new Dictionary<string, House2>();
+			public HouseFactory()
+			{
+				houses.Add("Panel", new PanelHouse2());
+				houses.Add("Brick", new BrickHouse());
+			}
+
+			public House2 GetHouse(string key)
+			{
+				if (houses.ContainsKey(key))
+					return houses[key];
+				else
+					return null;
+			}
+		}
+
+		/// <summary>
+		/// Studying different design patterns
+		/// </summary>
+		public static void Patterns()
+		{
+			// CREATIONAL
+
+			// Singleton
+
+			Singleton firstInstance = Singleton.Instance();
+			Singleton secondInstance = Singleton.Instance();
+			if (firstInstance == secondInstance)
+				Console.WriteLine("Great, We are same instances");
+			else
+				Console.WriteLine("Singleton failed me");
+
+			LazySingleton lazySingleton = LazySingleton.GetInstance();
+			LazySingleton secondLazy = LazySingleton.GetInstance();
+			if (lazySingleton == secondLazy)
+				Console.WriteLine("Great, We are same lazy instances, GUID: " + lazySingleton.Name);
+			else
+				Console.WriteLine("LazySingleton failed me");
+
+			// Abstract Factory
+
+			ConcreteFactory1 factory1 = new();
+			Client client = new(factory1);
+			AbstractProductA productA = client.GetProductA();
+			AbstractProductB productB = client.GetProductB();
+			Console.WriteLine("Factory1 has created products with types: " + productA.GetType() + ", " + productB.GetType());
+
+			ConcreteFactory2 factory2 = new();
+			client = new(factory2);
+			productA = client.GetProductA();
+			productB = client.GetProductB();
+			Console.WriteLine("Factory2 has created products with types: " + productA.GetType() + ", " + productB.GetType());
+
+			// Builder
+
+			var tripBuilder = new TripLaptopBuilder();
+			var gamingBuilder = new GamingLaptopBuilder();
+			var shopForYou = new BuyLaptop(); //Директор
+			//Покупець каже, що хоче грати ігри
+			shopForYou.SetLaptopBuilder(gamingBuilder);
+			shopForYou.ConstructLaptop();
+			// Ну то нехай бере що хоче! 
+			Laptop laptop = shopForYou.GetLaptop();
+			Console.WriteLine(laptop.ToString());
+			// Вивід: 1900X1200, Core 2 Duo, 3.2 GHz, 6144 Mb, 500 Gb, 6 lbs
+
+			// Factory Method
+
+			Developer dev = new PanelDeveloper("ТЗОВ ЦеглаБуд");
+			House house2 = dev.Create(); // Панельний дім побудований
+			
+			dev = new WoodDeveloper("Приватний забудовник"); 
+			House house = dev.Create(); // Дерев’яний дім побудований
+
+			// Prototype 
+
+			IFigure figure = new Rectangle(30, 40);
+			IFigure clonedFigure = figure.Clone();
+			figure.GetInfo(); // Прямокутник з довжиною 40 і шириною 30
+			clonedFigure.GetInfo(); // Прямокутник з довжиною 40 і шириною 30
+
+			figure = new Circle(30);
+			clonedFigure = figure.Clone();
+			figure.GetInfo(); // Круг з радіусом 30
+			clonedFigure.GetInfo(); // Круг з радіусом 30
+
+			// STRUCTURAL
+
+			// Adapter (class)
+
+			Target target = new();
+			target.Request(); // Target Request
+			target = new Adapter();
+			target.Request(); // Specific Request
+
+			// Adapter (object)
+			
+			Adapter target2 = new();  // Adapter has the Adaptee inside
+			target2.AdaptedRequest(); // Specific Request
+
+			// Decorator
+
+			ICake cake = new SimpleCake(); // Простий торт 
+			ICake cake1 = new WithWhippedCream(cake); // з вершками 
+			ICake cake2 = new WithSprinkles(cake1); // з присипкою
+			Console.WriteLine(cake2.ingredients()); // Простий торт з вершками з присипкою
+			Console.WriteLine(cake2.price()); // 16.25
+
+			// або можна ланцюжок
+			ICake cake4 = 
+				new WithSprinkles(    // з присипкою
+				new WithWhippedCream( // з вершками 
+				new SimpleCake()));   // Простий торт
+			Console.WriteLine(cake4.ingredients()); // Простий торт з вершками з присипкою
+			Console.WriteLine(cake4.price()); // 16.25
+
+			// Facade
+
+			TextEditor textEditor = new TextEditor();
+			Compiler compiler = new Compiler();
+			CLR clr = new CLR();
+
+			VisualStudioFacade ide = new VisualStudioFacade(textEditor, compiler, clr);
+
+			Programmer programmer = new Programmer();
+			programmer.CreateApplication(ide);
+			// Output:
+			// Створення коду
+			// Збереження коду
+			// Компіляція застосунку
+			// Виконання додатку
+			// Завершення роботи додатку
+
+			// Proxy
+
+			Subject subject = new Proxy();
+			subject.Request();
+			// Output:
+			// Proxy Request start
+			// RealSubject Request
+			// Proxy Request end
+
+			using (IBook book = new BookStoreProxy())
+			{
+				// читаем первую страницу
+				Page page = book.GetPage(1);
+				Console.WriteLine(page.Text);
+				// Page 1 added to proxy list
+				// Page 1
+				
+				// читаем вторую страницу
+				page = book.GetPage(2);
+				Console.WriteLine(page.Text);
+				// Page 2 added to proxy list
+				// Page 2
+				
+				// возвращаемся на первую страницу    
+				page = book.GetPage(1);
+				Console.WriteLine(page.Text);
+				// Page 1 taken from proxy list
+				// Page 1
+			}
+
+			// BEHAVIOURAL
+
+			// Visitor
+
+			var structure = new Bank();
+			structure.Add(new Person
+			{
+				Name = "Дяконюк Лілія",
+				Number = "+380002184931"
+			});
+			structure.Add(new Company { Name = "Microsoft", RegNumber = "MS32141324", Number = "+13424131445" });
+			structure.Accept(new HtmlVisitor());
+			// <table><tr><td>Властивість<td><td>Значення</td></tr><tr><td>Name<td><td>Дяконюк Лілія</td></tr><tr><td>Number<td><td>+380002184931</td></tr></table>
+			// <table><tr><td>Властивість<td><td>Значення</td></tr><tr><td>Name<td><td>Microsoft</td></tr><tr><td>RegNumber<td><td>MS32141324</td></tr><tr><td>Number<td><td>+13424131445</td></tr></table>
+			structure.Accept(new XmlVisitor());
+			// <Person><Name>Дяконюк Лілія</Name><Number>+380002184931</Number></Person>
+			// <Company><Name>Microsoft</Name><RegNumber>MS32141324</RegNumber><Number>+13424131445</Number></Company>
+
+			// Mediator
+
+			ManagerMediator mediator = new ManagerMediator();
+			Colleague customer = new CustomerColleague(mediator);
+			Colleague coder = new ProgrammerColleague(mediator);
+			Colleague tester = new TesterColleague(mediator);
+			mediator.Customer = customer;
+			mediator.Programmer = coder;
+			mediator.Tester = tester;
+			customer.Send("Є замовлення, потрібно зробити програму"); // Повідомлення програмісту: Є замовлення, потрібно зробити програму
+			coder.Send("Програма готова, треба протестувати"); // Повідомлення тестеру: Програма готова, треба протестувати
+			tester.Send("Програма протестована і готова до продажу"); // Повідомлення замовнику: Програма протестована і готова до продажу
+
+			// Strategy
+
+			Auto auto = new Auto(4, "Volvo", new PetrolMove());
+			auto.Move(); // Переміщення на бензині
+			auto.Movable = new ElectricMove();
+			auto.Move(); // Переміщення на електриці
+
+			// Chain of Responsibility
+
+			Receiver receiver = new Receiver(false, true, true); // PayPalPayment OR MoneyPayment 
+																 // false, false, false -> nothing written
+
+			PaymentHandler bankPaymentHandler = new BankPaymentHandler();
+			PaymentHandler moneyPaymentHadler = new MoneyPaymentHandler();
+			PaymentHandler paypalPaymentHandler = new PayPalPaymentHandler();
+			bankPaymentHandler.Successor = paypalPaymentHandler;
+			paypalPaymentHandler.Successor = moneyPaymentHadler;
+
+			bankPaymentHandler.Handle(receiver); // Виконуємо переведення через PayPal
+
+			// NEW (BEHAVIOURAL):
+			// Observer (Publisher - Subscriber)
+
+			Stock stock = new Stock();
+			BankObserver bank = new("ЮнитБанк", stock);
+			BrokerObserver broker = new BrokerObserver("Иван Иваныч", stock);
+			// имитация торгов
+			stock.Market(); // Банк ЮнитБанк продает евро; Курс евро: 44
+							// Брокер Иван Иваныч продает доллары; Курс доллара: 38
+							// брокер прекращает наблюдать за торгами
+			broker.StopTrade();
+			// имитация торгов
+			stock.Market(); // Банк ЮнитБанк покупает евро; Курс евро: 30
+
+			// Template Method
+
+			School school = new School();
+			University university = new University();
+
+			school.Learn();  // Output:
+							 // Идем в первый класс
+							 // Посещаем уроки, делаем домашние задания
+							 // Сдаем выпускные экзамены
+							 // Получаем аттестат о среднем образовании
+			university.Learn(); // Output:
+								// Сдаем вступительные экзамены и поступаем в ВУЗ
+								// Посещаем лекции
+								// Проходим практику
+								// Сдаем экзамен по специальности
+								// Получаем диплом о высшем образовании
+
+			// Iterator
+
+			Library library = new Library();
+			Reader reader = new Reader();
+			reader.SeeBooks(library); // Output:
+									  // Война и мир
+									  // Отцы и дети
+									  // Вишневый сад
+
+			// State
+
+			Water water = new Water(new LiquidWaterState());
+			water.Heat();
+			water.Frost();
+			water.Frost(); // Output:
+						   // Превращаем жидкость в пар
+						   // Превращаем водяной пар в жидкость
+						   // Превращаем жидкость в лед
+
+			// Memento
+
+			Hero hero = new Hero();
+			hero.Shoot(); // Производим выстрел. Осталось 9 патронов
+			GameHistory game = new GameHistory();
+			game.History.Push(hero.SaveState()); // Сохранение игры. Параметры: 9 патронов, 5 жизней
+			hero.Shoot(); // Производим выстрел. Осталось 8 патронов
+			hero.RestoreState(game.History.Pop()); // Восстановление игры. Параметры: 9 патронов, 5 жизней
+			hero.Shoot(); // Производим выстрел. Осталось 8 патронов
+
+
+			// NEW STRUCTURAL
+
+			// Composite
+
+			Component2 fileSystem = new Directory("Файловая система");
+			// определяем новый диск
+			Component2 diskC = new Directory("Диск С");
+			// новые файлы
+			Component2 pngFile = new FileComponent("12345.png");
+			Component2 docxFile = new FileComponent("Document.docx");
+			// добавляем файлы на диск С
+			diskC.Add(pngFile);
+			diskC.Add(docxFile);
+			// добавляем диск С в файловую систему
+			fileSystem.Add(diskC);
+			// выводим все данные
+			fileSystem.Print();
+			// Узел Файловая система
+			// Подузлы:
+			//			Узел Диск С
+			// Подузлы:
+			//			12345.png
+			//			Document.docx
+			Console.WriteLine();
+			// удаляем с диска С файл
+			diskC.Remove(pngFile);
+			// создаем новую папку
+			Component2 docsFolder = new Directory("Мои Документы");
+			// добавляем в нее файлы
+			Component2 txtFile = new FileComponent("readme.txt");
+			Component2 csFile = new FileComponent("Program.cs");
+			docsFolder.Add(txtFile);
+			docsFolder.Add(csFile);
+			diskC.Add(docsFolder);
+			fileSystem.Print();
+			// Узел Файловая система
+			// Подузлы:
+			//			Узел Диск С
+			// Подузлы:
+			//			Document.docx
+			//			Узел Мои Документы
+			// Подузлы:
+			// 			readme.txt
+			// 			Program.cs
+
+			// Bridge
+
+			// создаем нового программиста, он работает с с++
+			Programmer2 freelancer = new FreelanceProgrammer(new CPPLanguage());
+			freelancer.DoWork();
+			freelancer.EarnMoney(); // Output:
+									// С помощью компилятора C++ компилируем программу в бинарный код
+									// Запускаем исполняемый файл программы
+									// Получаем оплату за выполненный заказ
+
+			// пришел новый заказ, но теперь нужен c#
+			freelancer.Language = new CSharpLanguage();
+			freelancer.DoWork();
+			freelancer.EarnMoney(); // Output:
+									// С помощью компилятора Roslyn компилируем исходный код в файл exe
+									// JIT компилирует программу в бинарный код
+									// CLR выполняет скомпилированный бинарный код
+									// Получаем оплату за выполненный заказ
+
+			// Flyweight
+
+			double longitude = 37.61;
+			double latitude = 55.74;
+
+			HouseFactory houseFactory = new HouseFactory();
+			for (int i = 0; i < 5; i++)
+			{
+				House2 panelHouse = houseFactory.GetHouse("Panel");
+				if (panelHouse != null)
+					panelHouse.Build(longitude, latitude);
+				longitude += 0.1;
+				latitude += 0.1;
+			}
+
+			// Output:
+			// Построен панельный дом из 16 этажей; координаты: 55,74 широты и 37,61 долготы
+			// Построен панельный дом из 16 этажей; координаты: 55,84 широты и 37,71 долготы
+			// Построен панельный дом из 16 этажей; координаты: 55,94 широты и 37,81 долготы
+			// Построен панельный дом из 16 этажей; координаты: 56,04 широты и 37,91 долготы
+			// Построен панельный дом из 16 этажей; координаты: 56,14 широты и 38,01 долготы
+			for (int i = 0; i < 5; i++)
+			{
+				House2 brickHouse = houseFactory.GetHouse("Brick");
+				if (brickHouse != null)
+					brickHouse.Build(longitude, latitude);
+				longitude += 0.1;
+				latitude += 0.1;
+			}
+
+			// Output:
+			// Построен кирпичный дом из 5 этажей; координаты: 56,24 широты и 38,11 долготы
+			// Построен кирпичный дом из 5 этажей; координаты: 56,34 широты и 38,21 долготы
+			// Построен кирпичный дом из 5 этажей; координаты: 56,44 широты и 38,31 долготы
+			// Построен кирпичный дом из 5 этажей; координаты: 56,54 широты и 38,41 долготы
+			// Построен кирпичный дом из 5 этажей; координаты: 56,64 широты и 38,51 долготы
+		}
+
+
+
+		#endregion Patterns
+
+		/// <summary>
+		/// Main method is the program entry point, only currently needed methods are used
+		/// </summary>
+		/// <param name="args"></param>
 		static void Main(string[] args)
 		{
 			Console.InputEncoding = Encoding.Unicode;
@@ -1813,8 +3756,12 @@ Second Line";
 			// Лекция18(); // Lambdas, delegates, events
 			// Лекция20(); // SOLID, (de)serialization
 			// Test();
-			AfterTest();
+			// AfterTest();
+			// ПропаданиеСимвола(); // bug-report has been sent to Microsoft
+			// DictionarySerialization();
+			Patterns();
 
 		} // Main
 	} // Program class
 } // namespace
+ 
