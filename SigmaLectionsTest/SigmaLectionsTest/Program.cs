@@ -3375,10 +3375,66 @@ Second Line";
 			}
 		}
 
-		/// <summary>
-		/// Studying different design patterns
-		/// </summary>
-		public static void Patterns()
+		// ADDITIONAL: Fluent Builder
+
+        public class User
+        {
+            public string Name { get; set; }        // имя
+            public string Company { get; set; }     // компания
+            public int Age { get; set; }            // возраст
+            public bool IsMarried { get; set; }      // женат/замужем
+
+            public static UserBuilder CreateBuilder()
+            {
+                return new UserBuilder();
+            }
+        }
+
+        public class UserBuilder
+        {
+            private User user;
+            public UserBuilder()
+            {
+                user = new User();
+            }
+            public UserBuilder SetName(string name)
+            {
+                user.Name = name;
+                return this;
+            }
+            public UserBuilder SetCompany(string company)
+            {
+                user.Company = company;
+                return this;
+            }
+            public UserBuilder SetAge(int age)
+            {
+                user.Age = age > 0 ? age : 0;
+                return this;
+            }
+            public UserBuilder IsMarried
+            {
+                get
+                {
+                    user.IsMarried = true;
+                    return this;
+                }
+            }
+            public User Build()
+            {
+                return user;
+            }
+
+            public static implicit operator User(UserBuilder builder) // operator of casting to type User
+            {
+                return builder.user;
+            }
+        }
+
+        /// <summary>
+        /// Studying different design patterns
+        /// </summary>
+        public static void Patterns()
 		{
 			// CREATIONAL
 
@@ -3728,13 +3784,22 @@ Second Line";
 				latitude += 0.1;
 			}
 
-			// Output:
-			// Построен кирпичный дом из 5 этажей; координаты: 56,24 широты и 38,11 долготы
-			// Построен кирпичный дом из 5 этажей; координаты: 56,34 широты и 38,21 долготы
-			// Построен кирпичный дом из 5 этажей; координаты: 56,44 широты и 38,31 долготы
-			// Построен кирпичный дом из 5 этажей; координаты: 56,54 широты и 38,41 долготы
-			// Построен кирпичный дом из 5 этажей; координаты: 56,64 широты и 38,51 долготы
-		}
+            // Output:
+            // Построен кирпичный дом из 5 этажей; координаты: 56,24 широты и 38,11 долготы
+            // Построен кирпичный дом из 5 этажей; координаты: 56,34 широты и 38,21 долготы
+            // Построен кирпичный дом из 5 этажей; координаты: 56,44 широты и 38,31 долготы
+            // Построен кирпичный дом из 5 этажей; координаты: 56,54 широты и 38,41 долготы
+            // Построен кирпичный дом из 5 этажей; координаты: 56,64 широты и 38,51 долготы
+
+            // ADDITIONAL: Fluent Builder (used in Commandos)
+
+            User tom = new UserBuilder().SetName("Tom").SetCompany("Microsoft").SetAge(23).Build();
+            User alice = User.CreateBuilder().SetName("Alice").IsMarried.SetAge(25).Build();
+
+			// using implicit cast operator User
+            User tom2 = new UserBuilder().SetName("Tom").SetCompany("Microsoft").SetAge(23);
+            User alice2 = User.CreateBuilder().SetName("Alice").IsMarried.SetAge(25);
+        }
 
 
 
