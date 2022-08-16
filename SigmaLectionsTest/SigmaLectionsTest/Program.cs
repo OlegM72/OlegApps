@@ -6,12 +6,20 @@ using System.Collections.Specialized; // строго типізовані не�
 using System.Collections.Generic; // узагальнені класи та інтерфейси колекцій
 using System.Collections.ObjectModel; // проксі та базові класи для спеціальних колекцій
 using System.Collections.Concurrent; // потокобезпечні колекції
-using System.Linq;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
+using static System.Environment; // using a class allows to use its fields directly without class mentioning
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Drawing;
+using System.Net;
+using System.Threading; // async, await, Task
 
+// [assembly:CLSCompliant(true)]
 namespace SigmaLectionsTest
 {
 	class Lecture_3_1
@@ -185,7 +193,8 @@ namespace SigmaLectionsTest
 	interface I2
 	{
 		int Foo();
-	}
+    }
+	
 	public class Widget : I1, I2
 	{
 		public void Foo()
@@ -420,14 +429,14 @@ namespace SigmaLectionsTest
 		[DataMember]
 		public Dictionary<TKey, TValue> dictionary;
 
-        public SerializableDictionary() : base()
-        {
+		public SerializableDictionary() : base()
+		{
 			dictionary = new();
 		}
 
-		public new TValue this[TKey idx] 
-		{	
-			get => dictionary[idx]; 
+		public new TValue this[TKey idx]
+		{
+			get => dictionary[idx];
 			set => dictionary[idx] = value;
 		}
 
@@ -445,7 +454,7 @@ namespace SigmaLectionsTest
 		{
 			string result = "";
 			foreach (KeyValuePair<TKey, TValue> item in dictionary)
-            {
+			{
 				result += $"[{item.Key}]: {item.Value}\r\n";
 			}
 			return result;
@@ -1714,7 +1723,6 @@ Second Line";
 			Console.WriteLine(test);
 		}
 
-
 		public static void Test()
 		{
 			Child1 child1 = new Child1();
@@ -2081,12 +2089,12 @@ Second Line";
 
 			public void Run()
 			{
-				
+
 			}
 		}
 
 		public class Laptop
-        {
+		{
 			public string MonitorResolution { get; set; }
 			public string Processor { get; set; }
 			public string Memory { get; set; }
@@ -2147,17 +2155,17 @@ Second Line";
 				Laptop.MonitorResolution = "1200X800";
 			}
 			public override void SetBattery()
-            {
+			{
 				//.. і так далі... 
 			}
 
 			public override void SetHDD()
-            {
+			{
 				//.. і так далі... 
 			}
 
 			public override void SetMemory()
-            {
+			{
 				//.. і так далі... 
 			}
 
@@ -2315,7 +2323,7 @@ Second Line";
 			}
 
 			public void AdaptedRequest() // if the base method is not virtual we can create new with new parameters/view
-            {
+			{
 				adaptee.SpecificRequest(); // different parameters or in different order could be here
 			}
 		}
@@ -2357,9 +2365,9 @@ Second Line";
 		}
 		public class WithWhippedCream : CakeDecorator
 		{
-            public WithWhippedCream(ICake cake) : base(cake) { }
+			public WithWhippedCream(ICake cake) : base(cake) { }
 
-            public override string ingredients()
+			public override string ingredients()
 			{
 				return this.cake.ingredients() + " з вершками";
 			}
@@ -2370,9 +2378,9 @@ Second Line";
 		}
 		public class WithSprinkles : CakeDecorator
 		{
-            public WithSprinkles(ICake cake) : base(cake) { }
+			public WithSprinkles(ICake cake) : base(cake) { }
 
-            public override string ingredients()
+			public override string ingredients()
 			{
 				return this.cake.ingredients() + " з присипкою";
 			}
@@ -2396,21 +2404,21 @@ Second Line";
 			public void CreateCode()
 			{
 				Console.WriteLine("Створення коду");
-			
-}
+
+			}
 			public void Save()
 			{
 				Console.WriteLine("Збереження коду");
-			
-}
+
+			}
 		}
 		class CLR
 		{
 			public void Execute()
 			{
 				Console.WriteLine("Виконання додатку");
-			
-}
+
+			}
 			public void Finish()
 			{
 				Console.WriteLine("Завершення роботи додатку");
@@ -2479,21 +2487,21 @@ Second Line";
 			public int Number { get; set; }
 			public string Text { get; set; }
 
-            public Page(int id, int num, string text)
-            {
+			public Page(int id, int num, string text)
+			{
 				Id = id;
 				Number = num;
 				Text = text;
-            }
+			}
 		}
 		class PageContext // : DbContext
 		{
 			// public DbSet<Page> Pages { get; set; }
 			public List<Page> Pages { get; set; }
-            public PageContext(List<Page> pages)
-            {
+			public PageContext(List<Page> pages)
+			{
 				Pages = pages;
-            }
+			}
 			public void Dispose() { }
 		}
 		interface IBook : IDisposable
@@ -2799,7 +2807,7 @@ Second Line";
 			{
 				if (receiver.BankTransfer == true)
 					Console.WriteLine("Виконуємо банківське переведення");
-					else if (Successor != null)
+				else if (Successor != null)
 					Successor.Handle(receiver);
 			}
 		}
@@ -3377,64 +3385,64 @@ Second Line";
 
 		// ADDITIONAL: Fluent Builder
 
-        public class User
-        {
-            public string Name { get; set; }        // имя
-            public string Company { get; set; }     // компания
-            public int Age { get; set; }            // возраст
-            public bool IsMarried { get; set; }      // женат/замужем
+		public class User
+		{
+			public string Name { get; set; }        // имя
+			public string Company { get; set; }     // компания
+			public int Age { get; set; }            // возраст
+			public bool IsMarried { get; set; }      // женат/замужем
 
-            public static UserBuilder CreateBuilder()
-            {
-                return new UserBuilder();
-            }
-        }
+			public static UserBuilder CreateBuilder()
+			{
+				return new UserBuilder();
+			}
+		}
 
-        public class UserBuilder
-        {
-            private User user;
-            public UserBuilder()
-            {
-                user = new User();
-            }
-            public UserBuilder SetName(string name)
-            {
-                user.Name = name;
-                return this;
-            }
-            public UserBuilder SetCompany(string company)
-            {
-                user.Company = company;
-                return this;
-            }
-            public UserBuilder SetAge(int age)
-            {
-                user.Age = age > 0 ? age : 0;
-                return this;
-            }
-            public UserBuilder IsMarried
-            {
-                get
-                {
-                    user.IsMarried = true;
-                    return this;
-                }
-            }
-            public User Build()
-            {
-                return user;
-            }
+		public class UserBuilder
+		{
+			private User user;
+			public UserBuilder()
+			{
+				user = new User();
+			}
+			public UserBuilder SetName(string name)
+			{
+				user.Name = name;
+				return this;
+			}
+			public UserBuilder SetCompany(string company)
+			{
+				user.Company = company;
+				return this;
+			}
+			public UserBuilder SetAge(int age)
+			{
+				user.Age = age > 0 ? age : 0;
+				return this;
+			}
+			public UserBuilder IsMarried
+			{
+				get
+				{
+					user.IsMarried = true;
+					return this;
+				}
+			}
+			public User Build()
+			{
+				return user;
+			}
 
-            public static implicit operator User(UserBuilder builder) // operator of casting to type User
-            {
-                return builder.user;
-            }
-        }
+			public static implicit operator User(UserBuilder builder) // operator of casting to type User
+			{
+				return builder.user;
+			}
+		}
 
-        /// <summary>
-        /// Studying different design patterns
-        /// </summary>
-        public static void Patterns()
+		/// <summary>
+		/// Studying different design patterns
+		/// </summary>
+		public static void Patterns()
 		{
 			// CREATIONAL
 
@@ -3473,7 +3481,7 @@ Second Line";
 			var tripBuilder = new TripLaptopBuilder();
 			var gamingBuilder = new GamingLaptopBuilder();
 			var shopForYou = new BuyLaptop(); //Директор
-			//Покупець каже, що хоче грати ігри
+											  //Покупець каже, що хоче грати ігри
 			shopForYou.SetLaptopBuilder(gamingBuilder);
 			shopForYou.ConstructLaptop();
 			// Ну то нехай бере що хоче! 
@@ -3485,8 +3493,8 @@ Second Line";
 
 			Developer dev = new PanelDeveloper("ТЗОВ ЦеглаБуд");
 			House house2 = dev.Create(); // Панельний дім побудований
-			
-			dev = new WoodDeveloper("Приватний забудовник"); 
+
+			dev = new WoodDeveloper("Приватний забудовник");
 			House house = dev.Create(); // Дерев’яний дім побудований
 
 			// Prototype 
@@ -3511,7 +3519,7 @@ Second Line";
 			target.Request(); // Specific Request
 
 			// Adapter (object)
-			
+
 			Adapter target2 = new();  // Adapter has the Adaptee inside
 			target2.AdaptedRequest(); // Specific Request
 
@@ -3524,7 +3532,7 @@ Second Line";
 			Console.WriteLine(cake2.price()); // 16.25
 
 			// або можна ланцюжок
-			ICake cake4 = 
+			ICake cake4 =
 				new WithSprinkles(    // з присипкою
 				new WithWhippedCream( // з вершками 
 				new SimpleCake()));   // Простий торт
@@ -3564,13 +3572,13 @@ Second Line";
 				Console.WriteLine(page.Text);
 				// Page 1 added to proxy list
 				// Page 1
-				
+
 				// читаем вторую страницу
 				page = book.GetPage(2);
 				Console.WriteLine(page.Text);
 				// Page 2 added to proxy list
 				// Page 2
-				
+
 				// возвращаемся на первую страницу    
 				page = book.GetPage(1);
 				Console.WriteLine(page.Text);
@@ -3784,49 +3792,591 @@ Second Line";
 				latitude += 0.1;
 			}
 
-            // Output:
-            // Построен кирпичный дом из 5 этажей; координаты: 56,24 широты и 38,11 долготы
-            // Построен кирпичный дом из 5 этажей; координаты: 56,34 широты и 38,21 долготы
-            // Построен кирпичный дом из 5 этажей; координаты: 56,44 широты и 38,31 долготы
-            // Построен кирпичный дом из 5 этажей; координаты: 56,54 широты и 38,41 долготы
-            // Построен кирпичный дом из 5 этажей; координаты: 56,64 широты и 38,51 долготы
+			// Output:
+			// Построен кирпичный дом из 5 этажей; координаты: 56,24 широты и 38,11 долготы
+			// Построен кирпичный дом из 5 этажей; координаты: 56,34 широты и 38,21 долготы
+			// Построен кирпичный дом из 5 этажей; координаты: 56,44 широты и 38,31 долготы
+			// Построен кирпичный дом из 5 этажей; координаты: 56,54 широты и 38,41 долготы
+			// Построен кирпичный дом из 5 этажей; координаты: 56,64 широты и 38,51 долготы
 
-            // ADDITIONAL: Fluent Builder (used in Commandos)
+			// ADDITIONAL: Fluent Builder (used in Commandos)
 
-            User tom = new UserBuilder().SetName("Tom").SetCompany("Microsoft").SetAge(23).Build();
-            User alice = User.CreateBuilder().SetName("Alice").IsMarried.SetAge(25).Build();
+			User tom = new UserBuilder().SetName("Tom").SetCompany("Microsoft").SetAge(23).Build();
+			User alice = User.CreateBuilder().SetName("Alice").IsMarried.SetAge(25).Build();
 
 			// using implicit cast operator User
-            User tom2 = new UserBuilder().SetName("Tom").SetCompany("Microsoft").SetAge(23);
-            User alice2 = User.CreateBuilder().SetName("Alice").IsMarried.SetAge(25);
-        }
-
-
-
+			User tom2 = new UserBuilder().SetName("Tom").SetCompany("Microsoft").SetAge(23);
+			User alice2 = User.CreateBuilder().SetName("Alice").IsMarried.SetAge(25);
+		}
 		#endregion Patterns
 
-		/// <summary>
-		/// Main method is the program entry point, only currently needed methods are used
-		/// </summary>
-		/// <param name="args"></param>
-		static void Main(string[] args)
+		#region AdditionalTests
+		static class AdditionalTests
 		{
-			Console.InputEncoding = Encoding.Unicode;
-			Console.OutputEncoding = Encoding.Unicode;
-			// Lecture3(); // enums, exceptions, Equals, ReferenceEquals
-			// Lecture4(); // matrices
-			// Lecture10(); // strings, StringBuilder, string formats, try-catch
-			// Лекция13(); // try-catch cont.
-			// Лекция17(); // collections
-			// Лекция18(); // Lambdas, delegates, events
-			// Лекция20(); // SOLID, (de)serialization
-			// Test();
-			// AfterTest();
-			// ПропаданиеСимвола(); // bug-report has been sent to Microsoft
-			// DictionarySerialization();
-			Patterns();
+			class Person
+			{
+				public string Name { get; set; }
+			}
+			class People
+			{
+				Person[] data;
+				public People()
+				{
+					data = new Person[5];
+				}
+				public Person this[int index]
+				{
+					get
+					{
+						return data[index];
+					}
+					set
+					{
+						data[index] = value;
+					}
+				}
 
-		} // Main
-	} // Program class
+				class Matrix
+				{
+					private int[,] numbers = new int[,] {
+						{ 1, 2, 4 },
+						{ 2, 3, 6 },
+						{ 3, 4, 8 }
+					};
+					public int this[int i, int j]
+					{
+						get
+						{
+							return numbers[i, j];
+						}
+						set
+						{
+							numbers[i, j] = value;
+						}
+					}
+				}
+            }
+            public class SimpleClass
+            {
+                // Static variable that must be initialized at run time
+                public static readonly long StaticTicks;
+
+                // Non static variable
+                public readonly long NonStaticTicks;
+
+                // Static constructor is called at most one time, before any
+                // instance constructor is invoked or member is accessed.
+                static SimpleClass()
+                {
+                    StaticTicks = DateTime.Now.Ticks;
+                }
+
+                public SimpleClass()
+                {
+                    // StaticTicks = DateTime.Now.Ticks;    // error: Fields of static readonly field
+                    // cannot be assigned to (except in a static
+                    // constructor or a variable initializer)
+                    NonStaticTicks = DateTime.Now.Ticks;
+                }
+            }
+            public class PathInfo
+            {
+                public string DirectoryName { get; }
+                public string FileName { get; }
+                public string Extension { get; }
+
+                public PathInfo(string path)
+                {
+
+                }
+                public void Deconstruct(out string directoryName, out string fileName, out string extension)
+                {
+                    directoryName = DirectoryName; fileName = FileName;
+                    extension = Extension;
+                }
+
+                ~PathInfo() { }
+
+                // protected override void Finalize()
+                // {
+                //     base.Finalize();
+                // }
+
+                private void SayName(object obj)
+                {
+                    if (obj as TextBox != null)
+                    {
+                        Console.WriteLine(((TextBox)obj));//.Name);
+                    }
+                }
+                private void SayName2(object obj)
+                {
+                    TextBox tmp = obj as TextBox;
+                    if (tmp != null)
+                    {
+                        Console.WriteLine(tmp);//.Name);
+                    }
+                }
+
+                public Point Copy()
+                {
+                    return (Point)this.MemberwiseClone();
+                }
+
+            }
+
+            interface I1
+            {
+                void Foo();
+            }
+            interface I2
+            {
+                int Foo();
+            }
+            public class Widget : I1, I2
+            {
+                public void Foo()
+                {
+                    Console.WriteLine("Widget’s implementation of I1.Foo");
+                }
+                int I2.Foo()
+                {
+                    Console.WriteLine("Widget's implementation of I2.Foo");
+                    return 42;
+                }
+            }
+            public static void AdditionalLecturesTests()
+			{
+				char[] vowels = new char[10];
+				char[] vowels1 = new char[] { 'a', 'e', 'i', 'о', 'u' };
+				int[,] matrix = new int[3, 3];
+				int[,] matrix1 = new int[,] { { 0, 1, 2 }, { 3, 4, 5 }, { 6, 7, 8 } };
+				// Спрощені форми
+				char[] vowels2 = { 'а', 'е', 'i', 'о', 'u' };
+				int[,] rectangularMatrix = { { 0, 1, 2 }, { 3, 4, 5 }, { 6, 7, 8 } };
+				int[][] jaggedMatrix = { new int[] { 0, 1, 2 }, new int[] { 3, 4, 5 }, new int[] { 6, 7, 8 } };
+				// Неявне задання типу
+				var rectMatrix = new int[,] // rectMatrix неявно отримує тип int[,]
+				{
+ 					{0,1,2}, {3,4,5}, {6,7,8}
+				};
+				var jaggedMat = new int[][] // jaggedMat неявно отримує тип int[][]
+				{
+				new int [ ] {0,1,2}, new int [] {3,4,5}, new int[] {6,7,8}
+				};
+				// Повне розпізнавання
+				var vowels3 = new[] { 'а', 'е', 'i', 'о', 'u' }; // Компилятор виводить тип char[]
+
+                People people = new People();
+				people[0] = new Person { Name = "Tom" };
+				people[1] = new Person { Name = "Bob" };
+
+				Person tom = people[0];
+				Console.WriteLine(tom?.Name);
+
+				Widget w = new();
+				w.Foo(); // Widget’s implementation of I1.Foo
+                ((I1)w).Foo(); // Widget’s implementation of I1.Foo
+                ((I2)w).Foo(); // Widget’s implementation of I2.Foo
+            }
+        }
+        #endregion AdditionalTests
+
+        /// <summary>
+        /// Using all properties from System.Environment namespace
+        /// </summary>
+        private static void EnvironmentTest()
+		{
+			if (Environment.HasShutdownStarted)
+				Console.WriteLine("Current application domain is being unloaded" + Environment.NewLine +
+								  "or the common language runtime (CLR) is shutting down.");  // (false)
+            if (Is64BitOperatingSystem) Console.WriteLine("This is 64 bit OS"); // (true)
+            if (Is64BitProcess) Console.WriteLine("This is 64 bit process / address space"); // (true)
+			Console.WriteLine("A unique identifier for this managed thread: " + CurrentManagedThreadId); // 1
+            // !!!
+			Console.WriteLine("The fully qualified path of the current working directory: " + CurrentDirectory);
+				// C:\Users\Admin\source\repos\OlegApps\SigmaLectionsTest\SigmaLectionsTest\bin\Debug\net5.0
+            Console.WriteLine("Command line arguments: " + CommandLine);
+				// C: \Users\Admin\source\repos\OlegApps\SigmaLectionsTest\SigmaLectionsTest\bin\Debug\net5.0\SigmaLectionsTest.dll
+            Console.WriteLine("The platform identifier and version number: " + OSVersion); // Microsoft Windows NT 10.0.19044.0
+            Console.WriteLine("The unique identifier for the current process: " + ProcessId); // 8736
+            Console.WriteLine("The number of processors on the current machine: " + ProcessorCount); // 4
+            Console.WriteLine("Current stack trace information: " + Environment.StackTrace);
+				// at System.Environment.get_StackTrace()
+				// at SigmaLectionsTest.Program.EnvironmentTest() in C: \Users\Admin\source\repos\OlegApps\SigmaLectionsTest\SigmaLectionsTest\Program.cs:line 4022
+				// at SigmaLectionsTest.Program.Main(String[] args) in C: \Users\Admin\source\repos\OlegApps\SigmaLectionsTest\SigmaLectionsTest\Program.cs:line 4002
+            Console.WriteLine("The fully qualified path of the system directory: " + SystemDirectory); // C:\WINDOWS\system32
+            Console.WriteLine("The number of bytes in the system memory page: " + SystemPageSize); // 4096
+            Console.WriteLine("The number of milliseconds elapsed since the system started: " + TickCount); // 442968796
+            Console.WriteLine("The number of milliseconds elapsed since the system started (long): " + TickCount64); // 442968796
+				// 17.5 seconds: 443067046 - 443049484 = 17562 "ticks" -> Milliseconds
+            Console.WriteLine("DateTime.Now.Ticks = " + DateTime.Now.Ticks); // 637961835302583735
+				// 20.5 seconds: 637961837545352417 - 637961837358166084 = 187,186,304 (~9,131,039 per second)
+            Console.WriteLine("The network domain name associated with the current user: " + UserDomainName); // OLEG
+            if (UserInteractive) Console.WriteLine("The current process is running in user interactive mode."); // (true)
+            Console.WriteLine("The user name of the person who is associated with the current thread: " + UserName); // Admin
+            Console.WriteLine("The version of the common language runtime: " + Environment.Version); // 5.0.17
+            Console.WriteLine("The amount of physical memory mapped to the process context: " + WorkingSet); // 19992576
+            Console.WriteLine("The NetBIOS name of this local computer: " + MachineName); // OLEG
+            Console.WriteLine("A string with Path environment variable replaced by its value: " +
+                ExpandEnvironmentVariables("Path")); // Path
+            // FailFast(string? message[, Exception? exception]); // do not use - this closes App and sends report to MS
+            Console.WriteLine("The command-line arguments for the current process:");
+            foreach (string s in GetCommandLineArgs()) Console.Write(s + "; ");
+	            // C:\Users\Admin\source\repos\OlegApps\SigmaLectionsTest\SigmaLectionsTest\bin\Debug\net5.0\SigmaLectionsTest.dll;
+            Console.WriteLine();
+            Console.WriteLine("The value of Path environment variable for the current Machine: " + 
+				GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine));
+	            // C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Delphi 10 Lite\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\
+            Console.WriteLine();
+            Console.WriteLine("All environment variable names for this machine: ");
+            foreach (DictionaryEntry item in GetEnvironmentVariables(EnvironmentVariableTarget.Machine))
+				Console.WriteLine(item.Key + " = " + item.Value);
+            /*
+			 * PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+			 * Path = C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Delphi 10 Lite\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\
+			 * OS = Windows_NT
+			 * PSModulePath = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+			 * ComSpec = C:\WINDOWS\system32\cmd.exe
+			 * windir = C:\WINDOWS
+			 * NUMBER_OF_PROCESSORS = 4
+			 * PROCESSOR_ARCHITECTURE = AMD64
+			 * PROCESSOR_LEVEL = 6
+			 * TMP = C:\WINDOWS\TEMP
+			 * PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 58 Stepping 9, GenuineIntel
+			 * DriverData = C:\Windows\System32\Drivers\DriverData
+			 * PROCESSOR_REVISION = 3a09
+			 * USERNAME = SYSTEM
+			 * TEMP = C:\WINDOWS\TEMP
+			 */
+            Console.WriteLine();
+            Console.WriteLine("All environment variable names for this process: ");
+            foreach (DictionaryEntry item in GetEnvironmentVariables())
+				Console.WriteLine(item.Key + " = " + item.Value);
+            /*
+			 * HOMEPATH = \Users\Admin
+			 * VisualStudioEdition = Microsoft Visual Studio Community 2022
+			 * VSLANG = 1049
+			 * HOMEDRIVE = C:
+			 * ProgramData = C:\ProgramData
+			 * CommonProgramW6432 = C:\Program Files\Common Files
+			 * DriverData = C:\Windows\System32\Drivers\DriverData
+			 * MSBuildLoadMicrosoftTargetsReadOnly = true
+			 * USERDOMAIN_ROAMINGPROFILE = OLEG
+			 * ComSpec = C:\WINDOWS\system32\cmd.exe
+			 * PROCESSOR_ARCHITECTURE = AMD64
+			 * PROCESSOR_LEVEL = 6
+			 * PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+			 * COMPUTERNAME = OLEG
+			 * Path = C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Delphi 10 Lite\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Users\Admin\Documents\Borland Studio Projects\Bpl;C:\Users\Admin\AppData\Local\Microsoft\WindowsApps;C:\Users\Admin\.dotnet\tools
+			 * ProgramFiles(x86) = C:\Program Files (x86)
+			 * FPS_BROWSER_USER_PROFILE_STRING = Default
+			 * ProgramFiles = C:\Program Files
+			 * ServiceHubLogSessionKey = 2FA04B5F
+			 * LOCALAPPDATA = C:\Users\Admin\AppData\Local
+			 * USERPROFILE = C:\Users\Admin
+			 * OneDriveConsumer = C:\Users\Admin\OneDrive
+			 * NUMBER_OF_PROCESSORS = 4
+			 * VSAPPIDNAME = devenv.exe
+			 * windir = C:\WINDOWS
+			 * VisualStudioVersion = 17.0
+			 * ForceIdentityAuthenticationType = Embedded
+			 * SignInWithHomeTenantOnly = False
+			 * OneDrive = C:\Users\Admin\OneDrive
+			 * CommonProgramFiles = C:\Program Files\Common Files
+			 * LOGONSERVER = \\OLEG
+			 * TMP = C:\Users\Admin\AppData\Local\Temp
+			 * VisualStudioDir = C:\Users\Admin\Documents\Visual Studio 2022
+			 * COMPLUS_ForceEnc = 1
+			 * FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
+			 * SystemDrive = C:
+			 * PkgDefApplicationConfigFile = C:\Users\Admin\AppData\Local\Microsoft\VisualStudio\17.0_cf9d526f\devenv.exe.config
+			 * SESSIONNAME = Console
+			 * VSAPPIDDIR = C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\
+			 * ALLUSERSPROFILE = C:\ProgramData
+			 * VSSKUEDITION = Community
+			 * OS = Windows_NT
+			 * PSModulePath = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+			 * ThreadedWaitDialogDpiContext = -4
+			 * USERNAME = Admin
+			 * PROCESSOR_REVISION = 3a09
+			 * USERDOMAIN = OLEG
+			 * SystemRoot = C:\WINDOWS
+			 * PUBLIC = C:\Users\Public
+			 * APPDATA = C:\Users\Admin\AppData\Roaming
+			 * TEMP = C:\Users\Admin\AppData\Local\Temp
+			 * PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 58 Stepping 9, GenuineIntel
+			 * CommonProgramFiles(x86) = C:\Program Files (x86)\Common Files
+			 * ProgramW6432 = C:\Program Files
+			 */
+            Console.WriteLine();
+            Console.WriteLine("Windows folder: " + GetFolderPath(SpecialFolder.Windows, SpecialFolderOption.None)); // C:\WINDOWS
+            Console.WriteLine("Common pictures folder: " + GetFolderPath(SpecialFolder.CommonPictures)); // C:\Users\Public\Pictures
+            Console.WriteLine("The names of the logical drives on the current computer:");
+			foreach (string item in GetLogicalDrives())
+				Console.Write(item + " "); // C:\ D:\ E:\ F:\
+            // SetEnvironmentVariable(string variable, string? value[, EnvironmentVariableTarget target]); // I do not use
+            ExitCode = 1;
+            Exit(2); // Terminates this process and returns an exit code to the operating system.
+                     // SigmaLectionsTest.exe (процесс 8736) завершил работу с кодом 2.
+        }
+
+		#region AsyncTest
+	    // These classes are intentionally empty for the purpose of this example. They are simply marker classes for the purpose of demonstration, contain no properties, and serve no other purpose.
+	    internal class Bacon { }
+        internal class Coffee { }
+        internal class Egg { }
+        internal class Juice { }
+        internal class Toast { }
+
+        public class AsyncTest
+        {
+            public static async Task Test()
+            {
+                Coffee cup = PourCoffee();
+                Console.WriteLine("coffee is ready");
+
+                var eggsTask = FryEggsAsync(2);
+                var baconTask = FryBaconAsync(3);
+                var toastTask = MakeToastWithButterAndJamAsync(2);
+
+                var breakfastTasks = new List<Task> { eggsTask, baconTask, toastTask };
+                while (breakfastTasks.Count > 0)
+                {
+                    Task finishedTask = await Task.WhenAny(breakfastTasks);
+                    if (finishedTask == eggsTask)
+                    {
+                        Console.WriteLine("eggs are ready");
+                    }
+                    else if (finishedTask == baconTask)
+                    {
+                        Console.WriteLine("bacon is ready");
+                    }
+                    else if (finishedTask == toastTask)
+                    {
+                        Console.WriteLine("toast is ready");
+                    }
+                    breakfastTasks.Remove(finishedTask);
+                }
+
+                Juice oj = PourOJ();
+                Console.WriteLine("oj is ready");
+                Console.WriteLine("Breakfast is ready!");
+
+             // output:
+                // Pouring coffee
+                // coffee is ready
+                // Warming the egg pan...
+                // putting 3 slices of bacon in the pan
+                // cooking first side of bacon...
+                // Putting a slice of bread in the toaster
+                // Putting a slice of bread in the toaster
+                // Start toasting...
+                // https://docs.microsoft.com/ru-ru/dotnet/csharp/programming-guide/concepts/async/
+				// it is not finished by some reason
+            }
+
+            static async Task<Toast> MakeToastWithButterAndJamAsync(int number)
+            {
+                var toast = await ToastBreadAsync(number);
+                ApplyButter(toast);
+                ApplyJam(toast);
+
+                return toast;
+            }
+
+            private static Juice PourOJ()
+            {
+                Console.WriteLine("Pouring orange juice");
+                return new Juice();
+            }
+
+            private static void ApplyJam(Toast toast) =>
+                Console.WriteLine("Putting jam on the toast");
+
+            private static void ApplyButter(Toast toast) =>
+                Console.WriteLine("Putting butter on the toast");
+
+            private static async Task<Toast> ToastBreadAsync(int slices)
+            {
+                for (int slice = 0; slice < slices; slice++)
+                {
+                    Console.WriteLine("Putting a slice of bread in the toaster");
+                }
+                Console.WriteLine("Start toasting...");
+                await Task.Delay(3000);
+                Console.WriteLine("Remove toast from toaster");
+
+                return new Toast();
+            }
+
+            private static async Task<Bacon> FryBaconAsync(int slices)
+            {
+                Console.WriteLine($"putting {slices} slices of bacon in the pan");
+                Console.WriteLine("cooking first side of bacon...");
+                await Task.Delay(3000);
+                for (int slice = 0; slice < slices; slice++)
+                {
+                    Console.WriteLine("flipping a slice of bacon");
+                }
+                Console.WriteLine("cooking the second side of bacon...");
+                await Task.Delay(3000);
+                Console.WriteLine("Put bacon on plate");
+
+                return new Bacon();
+            }
+
+            private static async Task<Egg> FryEggsAsync(int howMany)
+            {
+                Console.WriteLine("Warming the egg pan...");
+                await Task.Delay(3000);
+                Console.WriteLine($"cracking {howMany} eggs");
+                Console.WriteLine("cooking the eggs ...");
+                await Task.Delay(3000);
+                Console.WriteLine("Put eggs on plate");
+
+                return new Egg();
+            }
+
+            private static Coffee PourCoffee()
+            {
+                Console.WriteLine("Pouring coffee");
+                return new Coffee();
+            }
+        }
+        #endregion
+
+        public static void ConsoleTest()
+		{
+			Console.Clear();
+            Console.WriteLine("WindowTop: " + Console.WindowTop); // 0
+            Console.WriteLine("WindowLeft: " + Console.WindowLeft); // 0
+            Console.WriteLine("BackgroundColor: " + Console.BackgroundColor); // Black
+            Console.WriteLine("ForegroundColor: " + Console.ForegroundColor); // Gray
+            Console.WriteLine("BufferHeight: " + Console.BufferHeight); // 900
+            Console.WriteLine("BufferWidth: " + Console.BufferWidth); // 166
+            Console.WriteLine("CapsLock: " + Console.CapsLock); // False
+            Console.WriteLine("CursorLeft: " + Console.CursorLeft); // 0
+            Console.WriteLine("CursorTop: " + Console.CursorTop); // 9
+            Console.WriteLine("CursorSize: " + Console.CursorSize); // 25  
+            Console.WriteLine("CursorVisible: " + Console.CursorVisible); // True
+            Console.WriteLine("GetCursorPosition: " + Console.GetCursorPosition()); // (0, 12) 
+            Console.WriteLine("Error: " + Console.Error); // System.IO.TextWriter + SyncTextWriter
+            Console.WriteLine("In: " + Console.In); // System.IO.SyncTextReader
+            Console.WriteLine("Out: " + Console.Out); // System.IO.TextWriter + SyncTextWriter
+            Console.WriteLine("InputEncoding: " + Console.InputEncoding); // System.Text.UnicodeEncoding
+            Console.WriteLine("OutputEncoding: " + Console.OutputEncoding); // System.Text.UnicodeEncoding
+            Console.WriteLine("IsErrorRedirected: " + Console.IsErrorRedirected); // False
+            Console.WriteLine("IsInputRedirected: " + Console.IsInputRedirected); // False
+            Console.WriteLine("KeyAvailable: " + Console.KeyAvailable); // False
+            Console.WriteLine("LargestWindowHeight: " + Console.LargestWindowHeight); // 44
+            Console.WriteLine("LargestWindowWidth: " + Console.LargestWindowWidth); // 170
+            Console.WriteLine("NumberLock: " + Console.NumberLock); // True
+            Console.WriteLine("Title: " + Console.Title); // C:\Users\Admin\source\repos\OlegApps\SigmaLectionsTest\SigmaLectionsTest\bin\Debug\net5.0\SigmaLectionsTest.exe
+            Console.WriteLine("TreatControlCAsInput: " + Console.TreatControlCAsInput); // False
+            Console.WriteLine("WindowHeight: " + Console.WindowHeight); // 42
+            Console.WriteLine("WindowLeft: " + Console.WindowLeft); // 0
+            Console.WriteLine("WindowTop: " + Console.WindowTop); // 0
+            Console.WriteLine("WindowWidth: " + Console.WindowWidth); // 166
+            Console.ReadLine();
+            Console.Clear();
+			int num = Enum.GetValues(typeof(ConsoleColor)).Length; // 16
+            for (int i = 0; i < Console.LargestWindowHeight; i++)
+			{
+				for (int j = 0; j < Console.LargestWindowWidth; j++)
+				{
+					Console.ForegroundColor = (ConsoleColor)((i + j) % num); // * 65793 = // 10101 hex
+					Console.Write((char)num); //"¤"); // ►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►... = char(16)
+				}
+				Console.WriteLine();
+			}
+            Console.ReadLine();
+            Console.ResetColor();
+            Console.Clear();
+            // Let's go through all Console colors and set them as foreground  
+            foreach (ConsoleColor color in Enum.GetValues(typeof(ConsoleColor)))
+            {
+                Console.ForegroundColor = color;
+                Console.WriteLine($"Foreground color set to {color}");
+            }
+            // Restore original colors  
+            Console.ResetColor();
+            Console.WriteLine("=====================================");
+            Console.ForegroundColor = ConsoleColor.White;
+            // Let's go through all Console colors and set them as background  
+            foreach (ConsoleColor color in Enum.GetValues(typeof(ConsoleColor)))
+                
+            {
+                Console.BackgroundColor = color;
+                Console.WriteLine($"Background color set to {color}");
+            }
+            // Restore original colors  
+            Console.ResetColor();
+            Console.WriteLine("=====================================");
+            /*
+			 * Foreground color set to Black
+			 * Foreground color set to DarkBlue
+			 * Foreground color set to DarkGreen
+			 * Foreground color set to DarkCyan
+			 * Foreground color set to DarkRed
+			 * Foreground color set to DarkMagenta
+			 * Foreground color set to DarkYellow
+			 * Foreground color set to Gray
+			 * Foreground color set to DarkGray
+			 * Foreground color set to Blue
+			 * Foreground color set to Green
+			 * Foreground color set to Cyan
+			 * Foreground color set to Red
+			 * Foreground color set to Magenta
+			 * Foreground color set to Yellow
+			 * Foreground color set to White
+			 * =====================================
+			 * Background color set to Black
+			 * Background color set to DarkBlue
+			 * Background color set to DarkGreen
+			 * Background color set to DarkCyan
+			 * Background color set to DarkRed
+			 * Background color set to DarkMagenta
+			 * Background color set to DarkYellow
+			 * Background color set to Gray
+			 * Background color set to DarkGray
+			 * Background color set to Blue
+			 * Background color set to Green
+			 * Background color set to Cyan
+			 * Background color set to Red
+			 * Background color set to Magenta
+			 * Background color set to Yellow
+			 * Background color set to White
+			 * ===================================== */
+        }
+
+        /// <summary>Main method is the program entry point, only currently needed methods are used.</summary>
+        /// <remarks>Setting console encodings and running currenly studied procedure.</remarks>
+        /// <returns>Nothing 😁</returns>
+        /// <param name="args">Command Line parameters for the program</param>
+        static void Main(string[] args)
+        {
+            Console.InputEncoding = Encoding.Unicode;
+            Console.OutputEncoding = Encoding.Unicode;
+            // Lecture3(); // enums, exceptions, Equals, ReferenceEquals
+            // Lecture4(); // matrices
+            // Lecture10(); // strings, StringBuilder, string formats, try-catch
+            // Лекция13(); // try-catch cont.
+            // Лекция17(); // collections
+            // Лекция18(); // Lambdas, delegates, events
+            // Лекция20(); // SOLID, (de)serialization
+            // Test();
+            // AfterTest();
+            /// <seealso cref="ПропаданиеСимвола"/>
+            // ПропаданиеСимвола(); // bug-report has been sent to Microsoft. Works only in VS, not when EXE running
+			// DictionarySerialization();
+			// Patterns();
+			// AdditionalTests.AdditionalLecturesTests();
+
+			// AsyncTest.Test();
+            // ConsoleTest();
+            // EnvironmentTest();
+        } // Main
+    } // Program class
 } // namespace
  
