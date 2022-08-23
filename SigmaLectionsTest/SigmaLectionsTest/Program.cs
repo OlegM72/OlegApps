@@ -19,6 +19,10 @@ using System.Drawing;
 using System.Net;
 using System.Threading; // async, await, Task
 using System.Xml.Linq;
+using SigmaLectionsTest;
+
+
+
 
 // [assembly:CLSCompliant(true)]
 namespace SigmaLectionsTest
@@ -3624,11 +3628,11 @@ Second Line";
 			figure.GetInfo(); // Круг з радіусом 30
 			clonedFigure.GetInfo(); // Круг з радіусом 30
 
-			// STRUCTURAL
+        // STRUCTURAL
 
-			// Adapter (class)
+        // Adapter (class)
 
-			Target target = new();
+        Target target = new();
 			target.Request(); // Target Request
 			target = new Adapter();
 			target.Request(); // Specific Request
@@ -3701,7 +3705,8 @@ Second Line";
 				// Page 1
 			}
 
-			// BEHAVIOURAL
+            // BEHAVIOURAL
+           
 
 			// Visitor
 
@@ -3713,14 +3718,14 @@ Second Line";
 			});
 			structure.Add(new Company { Name = "Microsoft", RegNumber = "MS32141324", Number = "+13424131445" });
 			structure.Accept(new HtmlVisitor());
-			// <table><tr><td>Властивість<td><td>Значення</td></tr><tr><td>Name<td><td>Дяконюк Лілія</td></tr><tr><td>Number<td><td>+380002184931</td></tr></table>
-			// <table><tr><td>Властивість<td><td>Значення</td></tr><tr><td>Name<td><td>Microsoft</td></tr><tr><td>RegNumber<td><td>MS32141324</td></tr><tr><td>Number<td><td>+13424131445</td></tr></table>
+			// <table><tr><td>Властивість</td><td>Значення</td></tr><tr><td>Name</td><td>Дяконюк Лілія</td></tr><tr><td>Number</td><td>+380002184931</td></tr></table>
+			// <table><tr><td>Властивість</td><td>Значення</td></tr><tr><td>Name</td><td>Microsoft</td></tr><tr><td>RegNumber</td><td>MS32141324</td></tr><tr><td>Number</td><td>+13424131445</td></tr></table>
 			structure.Accept(new XmlVisitor());
-			// <Person><Name>Дяконюк Лілія</Name><Number>+380002184931</Number></Person>
-			// <Company><Name>Microsoft</Name><RegNumber>MS32141324</RegNumber><Number>+13424131445</Number></Company>
+            // <Person><Name>Дяконюк Лілія</Name><Number>+380002184931</Number></Person>
+            // <Company><Name>Microsoft</Name><RegNumber>MS32141324</RegNumber><Number>+13424131445</Number></Company>
 
-			// Mediator
-
+            // Mediator
+        
 			ManagerMediator mediator = new ManagerMediator();
 			Colleague customer = new CustomerColleague(mediator);
 			Colleague coder = new ProgrammerColleague(mediator);
