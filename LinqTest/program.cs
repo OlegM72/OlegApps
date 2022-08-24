@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace Testing
@@ -39,7 +41,36 @@ namespace Testing
         public override string ToString() { return $"({Title} ({Year}) owned by {Owner})"; }
     }
     #endregion
+    interface IDemo
+    { void F(string str); }
 
+    class Old_Class : IDemo
+    {
+        public void F1(string str)
+        { Console.WriteLine("F1 from Old_Class " + str); }
+
+        public void F(string str)
+        { Console.WriteLine("F from Old_Class " + str); }
+    }
+    static class Extentions_Class
+    {
+
+        public static void F1(this Old_Class obj, string str)
+        { Console.WriteLine("F1 from Extentions_Class " + str); }
+
+        public static void F2(this Old_Class obj, string str)
+        { Console.WriteLine("F2 from Extentions_Class " + str); }
+
+        // Метод розширення для типів, що реалізують IDemo
+        public static void F3(this IDemo obj, string str)
+        {
+            Console.WriteLine("F3 from Extentions_Class " + str);
+            obj.F("Call F from F3");
+        }
+        public static void Foo(this object obj, string str)
+        { Console.WriteLine("Foo " + str); }
+    }
+    
     internal class Linq_Testing
     {
         #region Auxiliary Methods
@@ -76,9 +107,29 @@ namespace Testing
         }
         #endregion
 
+        class A { public string Title; public int Count; }
         static void Main(string[] args)
         {
 
+            // Extension Methods understanding
+
+            Old_Class obj = new Old_Class();
+
+            obj.F1("111");
+            obj.F2("222");
+            obj.F3("333");
+            obj.Foo("abc");
+
+            string s = "";
+            s.Foo("efg");
+            // Output:
+            // F1 from Old_Class 111
+            // F2 from Extentions_Class 222
+            // F3 from Extentions_Class 333
+            // F from Old_Class Call F from F3
+            // Foo abc
+            // Foo efg
+            
             /* from let by join ascending in where descending orderby group on select into equals */
 
             #region ALl Methods
@@ -197,6 +248,17 @@ namespace Testing
             // keys first/2, second/2: 1 6 4 9 6 20 16 25 20 42 36 49 42 72 64 81 72 100 --> 1*1, (2 3) * (3 2), (4 5) * (5 4), (6 7) * (7 6), (8 9) * (9 8), 10*10
             // keys first/3, second/3: 2 1 4 2 15 12 9 20 16 12 25 20 15 48 42 36 56 49 42 64 56 48 90 81 100 90 --> (1 2) * (2 1), (3 4 5) * (5 4 3), (6 7 8) * (8 7 6), (9 10) * (10 9)
 
+            int[] arr1 = { 1, 2, 3, 4, 5, 6 };
+            int[] arr2 = { 6, 5, 4, 3, 2, 1 };
+            IEnumerable<int> int_joinedMini = arr1.Join(arr2,
+                first => first/3,   // outer key = arr1[i] / 3 (rounded down) -> 0 for (1, 2), 1 for (3, 4, 5), 2 for 6
+                second => second/3, // inner key = arr2[i] / 3 (rounded down) -> 0 for (2, 1), 1 for (5, 4, 3), 2 for 6
+                (a, b) => a * b);   // search key1[i] among key2[*], add the product of corresponding elements if equal
+            Print("JOIN Mini: ");
+            PrintList(int_joinedMini);
+            // 2 1 4 2 15 12 9 20 16 12 25 20 15 36
+            // (1 2) * (2 1), (3 4 5) * (5 4 3), 6 * 6
+            
             int_joined = from n in int_array
                          join m in int_ordered on n/3 equals m/3
                          select n * m;
@@ -235,13 +297,25 @@ namespace Testing
                 Print(">> Key: "); Print(item.Key); Print(", elements: ");
                 PrintList(item.Products);
             }   // the same as above
-
-            IEnumerable<int> int_concat = int_array.Concat(int_ordered);
+            
+        IEnumerable<int> int_concat = int_array.Concat(int_ordered);
             Print("CONCAT: ");
             PrintList(int_concat);              // 1 2 3 4 5 6 7 8 9 10 10 9 8 7 6 5 4 3 2 1
 
+            A[] a = { new A {Title = "AAA", Count = 1 },
+                      new A {Title = "NNN", Count = 2 } };
+            IEnumerable<IGrouping<string, A>> Query_11 = from item in a
+                           group item by item.Title into titleGroup
+                           where titleGroup.Count() >= 1
+                           select titleGroup;
+            foreach (IGrouping<string, A> group in Query_11)
+            {
+                Console.WriteLine("\n  Key = " + group.Key);
+                foreach (object item in group) Console.WriteLine((item as A).Count);
+            }
+            
             // concat keyword is absent
-                        
+
             Print("AGGREGATE (SUM - 10): ");
             PrintLine(int_concat.Aggregate(-10, (total, n) => total + n));  // 100 = SUM - 10
 
@@ -530,6 +604,13 @@ namespace Testing
             // { Title = Xiaomi, Count = 1 }
             // { Title = LG, Count = 2 }
             // { Title = Apple, Count = 2 }
+            foreach (var group in phoneGroups2)
+                Console.WriteLine($"{group.Title} : {group.Count}");
+            // Microsoft: 3
+            // Xiaomi: 1
+            // LG: 2
+            // Apple: 2
+
 
             int[] numbers = { 2, 3, 4 };
             Print("Aggregate, (total, n) => total + n*n: "); 
