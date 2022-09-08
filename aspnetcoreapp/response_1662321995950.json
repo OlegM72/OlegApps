@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "original": "something",
+    "translation": "что-либо"
+  },
+  {
+    "id": 2,
+    "original": "original",
+    "translation": "оригинальный"
+  },
+  {
+    "id": 3,
+    "original": "supreme",
+    "translation": "превосходный"
+  },
+  {
+    "id": 4,
+    "original": "title",
+    "translation": "заголовок"
+  }
+]

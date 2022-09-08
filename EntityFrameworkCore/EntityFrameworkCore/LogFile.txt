@@ -1,0 +1,260 @@
+info: 31.08.2022 14:18:51.895 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Entity Framework Core 6.0.8 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite:6.0.8' with options: SensitiveDataLoggingEnabled 
+dbug: 31.08.2022 14:18:51.895 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:51.896 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:51.897 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteScalar'.
+dbug: 31.08.2022 14:18:51.897 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteScalar' (0ms).
+dbug: 31.08.2022 14:18:51.897 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:51.897 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:51.897 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+info: 31.08.2022 14:18:51.897 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+dbug: 31.08.2022 14:18:51.897 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:51.897 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:51.978 CoreEventId.QueryCompilationStarting[10111] (Microsoft.EntityFrameworkCore.Query) 
+      Compiling query expression: 
+      'DbSet<Company>()
+          .FirstOrDefault()'
+warn: 31.08.2022 14:18:52.156 CoreEventId.FirstWithoutOrderByAndFilterWarning[10103] (Microsoft.EntityFrameworkCore.Query) 
+      The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+dbug: 31.08.2022 14:18:52.259 CoreEventId.QueryExecutionPlanned[10107] (Microsoft.EntityFrameworkCore.Query) 
+      Generated query execution expression: 
+      'queryContext => new SingleQueryingEnumerable<Company>(
+          (RelationalQueryContext)queryContext, 
+          RelationalCommandCache.SelectExpression(
+              Projection Mapping:
+                  EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: Company.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: Company.CountryId (int) Required FK Index, 1], [Property: Company.Name (string), 2] }
+              SELECT TOP(1) c.Id, c.CountryId, c.Name
+              FROM Companies AS c), 
+          Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Company>, 
+          ApplicationContext, 
+          False, 
+          False, 
+          True
+      )
+          .SingleOrDefault()'
+dbug: 31.08.2022 14:18:52.290 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 31.08.2022 14:18:52.290 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (0ms).
+dbug: 31.08.2022 14:18:52.290 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:52.290 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:52.290 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."CountryId", "c"."Name"
+      FROM "Companies" AS "c"
+      LIMIT 1
+info: 31.08.2022 14:18:52.290 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."CountryId", "c"."Name"
+      FROM "Companies" AS "c"
+      LIMIT 1
+dbug: 31.08.2022 14:18:52.296 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'Company' entity with key '{Id: 1}'.
+dbug: 31.08.2022 14:18:52.297 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 31.08.2022 14:18:52.297 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:52.297 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:52.305 CoreEventId.QueryCompilationStarting[10111] (Microsoft.EntityFrameworkCore.Query) 
+      Compiling query expression: 
+      'DbSet<User>()
+          .Where(u => u.CompanyId == __company_Id_0)'
+dbug: 31.08.2022 14:18:52.340 CoreEventId.QueryExecutionPlanned[10107] (Microsoft.EntityFrameworkCore.Query) 
+      Generated query execution expression: 
+      'queryContext => new SingleQueryingEnumerable<User>(
+          (RelationalQueryContext)queryContext, 
+          RelationalCommandCache.SelectExpression(
+              Projection Mapping:
+                  EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: User.Age (int) Required, 1], [Property: User.CompanyId (int?) FK Index, 2], [Property: User.Name (string), 3] }
+              SELECT u.Id, u.Age, u.CompanyId, u.Name
+              FROM Users AS u
+              WHERE u.CompanyId == @__company_Id_0), 
+          Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+          ApplicationContext, 
+          False, 
+          False, 
+          True
+      )'
+dbug: 31.08.2022 14:18:52.353 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 31.08.2022 14:18:52.353 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (0ms).
+dbug: 31.08.2022 14:18:52.353 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:52.353 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:52.353 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[@__company_Id_0='1' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Age", "u"."CompanyId", "u"."Name"
+      FROM "Users" AS "u"
+      WHERE "u"."CompanyId" = @__company_Id_0
+info: 31.08.2022 14:18:52.353 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[@__company_Id_0='1' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Age", "u"."CompanyId", "u"."Name"
+      FROM "Users" AS "u"
+      WHERE "u"."CompanyId" = @__company_Id_0
+dbug: 31.08.2022 14:18:52.354 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 1}'.
+dbug: 31.08.2022 14:18:52.355 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 3}'.
+dbug: 31.08.2022 14:18:52.355 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 31.08.2022 14:18:52.355 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:52.355 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:52.386 CoreEventId.QueryCompilationStarting[10111] (Microsoft.EntityFrameworkCore.Query) 
+      Compiling query expression: 
+      'DbSet<User>()
+          .Where(e => EF.Property<int?>(e, "CompanyId") == __p_0)
+          .AsTracking()'
+dbug: 31.08.2022 14:18:52.401 CoreEventId.QueryExecutionPlanned[10107] (Microsoft.EntityFrameworkCore.Query) 
+      Generated query execution expression: 
+      'queryContext => new SingleQueryingEnumerable<User>(
+          (RelationalQueryContext)queryContext, 
+          RelationalCommandCache.SelectExpression(
+              Projection Mapping:
+                  EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: User.Age (int) Required, 1], [Property: User.CompanyId (int?) FK Index, 2], [Property: User.Name (string), 3] }
+              SELECT u.Id, u.Age, u.CompanyId, u.Name
+              FROM Users AS u
+              WHERE u.CompanyId == @__p_0), 
+          Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+          ApplicationContext, 
+          False, 
+          False, 
+          True
+      )'
+dbug: 31.08.2022 14:18:52.401 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 31.08.2022 14:18:52.401 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (0ms).
+dbug: 31.08.2022 14:18:52.401 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:52.401 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:52.401 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[@__p_0='1' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Age", "u"."CompanyId", "u"."Name"
+      FROM "Users" AS "u"
+      WHERE "u"."CompanyId" = @__p_0
+info: 31.08.2022 14:18:52.402 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[@__p_0='1' (Nullable = true)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Age", "u"."CompanyId", "u"."Name"
+      FROM "Users" AS "u"
+      WHERE "u"."CompanyId" = @__p_0
+dbug: 31.08.2022 14:18:52.402 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 31.08.2022 14:18:52.402 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:52.402 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:52.404 CoreEventId.QueryCompilationStarting[10111] (Microsoft.EntityFrameworkCore.Query) 
+      Compiling query expression: 
+      'DbSet<User>()
+          .FirstOrDefault()'
+warn: 31.08.2022 14:18:52.404 CoreEventId.FirstWithoutOrderByAndFilterWarning[10103] (Microsoft.EntityFrameworkCore.Query) 
+      The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+dbug: 31.08.2022 14:18:52.408 CoreEventId.QueryExecutionPlanned[10107] (Microsoft.EntityFrameworkCore.Query) 
+      Generated query execution expression: 
+      'queryContext => new SingleQueryingEnumerable<User>(
+          (RelationalQueryContext)queryContext, 
+          RelationalCommandCache.SelectExpression(
+              Projection Mapping:
+                  EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: User.Age (int) Required, 1], [Property: User.CompanyId (int?) FK Index, 2], [Property: User.Name (string), 3] }
+              SELECT TOP(1) u.Id, u.Age, u.CompanyId, u.Name
+              FROM Users AS u), 
+          Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+          ApplicationContext, 
+          False, 
+          False, 
+          True
+      )
+          .SingleOrDefault()'
+dbug: 31.08.2022 14:18:52.408 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 31.08.2022 14:18:52.408 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (0ms).
+dbug: 31.08.2022 14:18:52.408 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:52.408 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:52.408 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Age", "u"."CompanyId", "u"."Name"
+      FROM "Users" AS "u"
+      LIMIT 1
+info: 31.08.2022 14:18:52.408 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Age", "u"."CompanyId", "u"."Name"
+      FROM "Users" AS "u"
+      LIMIT 1
+dbug: 31.08.2022 14:18:52.408 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 31.08.2022 14:18:52.408 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:52.408 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:52.411 CoreEventId.QueryCompilationStarting[10111] (Microsoft.EntityFrameworkCore.Query) 
+      Compiling query expression: 
+      'DbSet<Country>()
+          .Where(e => EF.Property<int>(e, "Id") == __p_0)
+          .AsTracking()'
+dbug: 31.08.2022 14:18:52.415 CoreEventId.QueryExecutionPlanned[10107] (Microsoft.EntityFrameworkCore.Query) 
+      Generated query execution expression: 
+      'queryContext => new SingleQueryingEnumerable<Country>(
+          (RelationalQueryContext)queryContext, 
+          RelationalCommandCache.SelectExpression(
+              Projection Mapping:
+                  EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: Country.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: Country.Name (string), 1] }
+              SELECT c.Id, c.Name
+              FROM Countries AS c
+              WHERE c.Id == @__p_0), 
+          Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Country>, 
+          ApplicationContext, 
+          False, 
+          False, 
+          True
+      )'
+dbug: 31.08.2022 14:18:52.415 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 31.08.2022 14:18:52.415 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (0ms).
+dbug: 31.08.2022 14:18:52.415 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:52.415 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:52.415 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[@__p_0='1'], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Name"
+      FROM "Countries" AS "c"
+      WHERE "c"."Id" = @__p_0
+info: 31.08.2022 14:18:52.416 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[@__p_0='1'], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Name"
+      FROM "Countries" AS "c"
+      WHERE "c"."Id" = @__p_0
+dbug: 31.08.2022 14:18:52.416 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'Country' entity with key '{Id: 1}'.
+dbug: 31.08.2022 14:18:52.417 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 31.08.2022 14:18:52.417 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 31.08.2022 14:18:52.417 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'main' on server 'helloapp.db'.
+dbug: 31.08.2022 14:18:52.417 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      'ApplicationContext' disposed.

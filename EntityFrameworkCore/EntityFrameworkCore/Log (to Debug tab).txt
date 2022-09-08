@@ -1,0 +1,277 @@
+"EntityFrameworkCore.exe" (CoreCLR: DefaultDomain). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Private.CoreLib.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\EntityFrameworkCore.dll". Символы загружены.
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Runtime.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "c:\program files\microsoft visual studio\2022\community\common7\ide\commonextensions\microsoft\hotreload\Microsoft.Extensions.DotNetDeltaApplier.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.IO.Pipes.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Linq.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Collections.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Console.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Threading.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Threading.Overlapped.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Security.Principal.Windows.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Security.AccessControl.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Runtime.InteropServices.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Security.Claims.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\Microsoft.Win32.Primitives.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Runtime.Loader.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Collections.Concurrent.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.ComponentModel.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Linq.Expressions.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.ComponentModel.TypeConverter.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Collections.Immutable.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Diagnostics.Tracing.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Diagnostics.DiagnosticSource.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\netstandard.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Threading.ThreadPool.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Memory.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Sqlite.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Data.Common.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.ComponentModel.Primitives.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Transactions.Local.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.Extensions.Options.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Reflection.Emit.Lightweight.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Reflection.Emit.ILGeneration.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Reflection.Primitives.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.ComponentModel.Annotations.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.ObjectModel.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+warn: 26.08.2022 22:24:35.932 CoreEventId.SensitiveDataLoggingEnabledWarning[10400] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+info: 26.08.2022 22:24:37.197 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Entity Framework Core 6.0.8 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite:6.0.8' with options: SensitiveDataLoggingEnabled 
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\Microsoft.Data.Sqlite.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Text.RegularExpressions.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\SQLitePCLRaw.core.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\SQLitePCLRaw.batteries_v2.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\SQLitePCLRaw.provider.e_sqlite3.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+
+======
+
+dbug: 26.08.2022 22:24:37.485 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:24:37.555 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Text.Encoding.Extensions.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Threading.Thread.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+dbug: 26.08.2022 22:24:37.611 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:24:37.615 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:24:37.646 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteScalar'.
+dbug: 26.08.2022 22:24:37.679 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteScalar' (24ms).
+dbug: 26.08.2022 22:24:37.685 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:24:37.699 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:24:37.720 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+info: 26.08.2022 22:24:37.777 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (56ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+dbug: 26.08.2022 22:24:37.793 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:24:37.808 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'main' on server 'helloapp.db'.
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "Anonymously Hosted DynamicMethods Assembly". 
+dbug: 26.08.2022 22:24:37.955 CoreEventId.ValueGenerated[10808] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      'ApplicationContext' generated temporary value '-2147482647' for the property 'Id.User'.
+dbug: 26.08.2022 22:24:38.093 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: -2147482647}'.
+dbug: 26.08.2022 22:24:38.100 CoreEventId.ValueGenerated[10808] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      'ApplicationContext' generated temporary value '-2147482646' for the property 'Id.User'.
+dbug: 26.08.2022 22:24:38.106 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: -2147482646}'.
+dbug: 26.08.2022 22:24:38.120 CoreEventId.SaveChangesStarting[10004] (Microsoft.EntityFrameworkCore.Update) 
+      SaveChanges starting for 'ApplicationContext'.
+dbug: 26.08.2022 22:24:38.130 CoreEventId.DetectChangesStarting[10800] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      DetectChanges starting for 'ApplicationContext'.
+dbug: 26.08.2022 22:24:38.148 CoreEventId.DetectChangesCompleted[10801] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      DetectChanges completed for 'ApplicationContext'.
+dbug: 26.08.2022 22:24:38.170 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:24:38.172 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:24:38.180 RelationalEventId.TransactionStarting[20209] (Microsoft.EntityFrameworkCore.Database.Transaction) 
+      Beginning transaction with isolation level 'Unspecified'.
+dbug: 26.08.2022 22:24:38.194 RelationalEventId.TransactionStarted[20200] (Microsoft.EntityFrameworkCore.Database.Transaction) 
+      Began transaction with isolation level 'Serializable'.
+dbug: 26.08.2022 22:24:38.345 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 26.08.2022 22:24:38.348 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (2ms).
+dbug: 26.08.2022 22:24:38.377 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[@p0='33', @p1='Tom' (Size = 3)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Users" ("Age", "Name")
+      VALUES (@p0, @p1);
+      SELECT "Id"
+      FROM "Users"
+      WHERE changes() = 1 AND "rowid" = last_insert_rowid();
+info: 26.08.2022 22:24:38.402 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (37ms) [Parameters=[@p0='33', @p1='Tom' (Size = 3)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Users" ("Age", "Name")
+      VALUES (@p0, @p1);
+      SELECT "Id"
+      FROM "Users"
+      WHERE changes() = 1 AND "rowid" = last_insert_rowid();
+dbug: 26.08.2022 22:24:38.446 CoreEventId.ForeignKeyChangeDetected[10803] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      The foreign key property 'User.Id' was detected as changed from '-2147482647' to '41' for entity with key '{Id: 41}'.
+dbug: 26.08.2022 22:24:38.469 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 26.08.2022 22:24:38.473 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 26.08.2022 22:24:38.475 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (2ms).
+dbug: 26.08.2022 22:24:38.477 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[@p0='26', @p1='Alice' (Size = 5)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Users" ("Age", "Name")
+      VALUES (@p0, @p1);
+      SELECT "Id"
+      FROM "Users"
+      WHERE changes() = 1 AND "rowid" = last_insert_rowid();
+info: 26.08.2022 22:24:38.481 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (4ms) [Parameters=[@p0='26', @p1='Alice' (Size = 5)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Users" ("Age", "Name")
+      VALUES (@p0, @p1);
+      SELECT "Id"
+      FROM "Users"
+      WHERE changes() = 1 AND "rowid" = last_insert_rowid();
+dbug: 26.08.2022 22:24:38.490 CoreEventId.ForeignKeyChangeDetected[10803] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      The foreign key property 'User.Id' was detected as changed from '-2147482646' to '42' for entity with key '{Id: 42}'.
+dbug: 26.08.2022 22:24:38.495 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 26.08.2022 22:24:38.510 RelationalEventId.TransactionCommitting[20210] (Microsoft.EntityFrameworkCore.Database.Transaction) 
+      Committing transaction.
+dbug: 26.08.2022 22:24:38.544 RelationalEventId.TransactionCommitted[20202] (Microsoft.EntityFrameworkCore.Database.Transaction) 
+      Committed transaction.
+dbug: 26.08.2022 22:24:38.548 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:24:38.551 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:24:38.560 RelationalEventId.TransactionDisposed[20204] (Microsoft.EntityFrameworkCore.Database.Transaction) 
+      Disposing transaction.
+dbug: 26.08.2022 22:24:38.587 CoreEventId.StateChanged[10807] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      The 'User' entity with key '{Id: 41}' tracked by 'ApplicationContext' changed state from 'Added' to 'Unchanged'.
+dbug: 26.08.2022 22:24:38.590 CoreEventId.StateChanged[10807] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      The 'User' entity with key '{Id: 42}' tracked by 'ApplicationContext' changed state from 'Added' to 'Unchanged'.
+dbug: 26.08.2022 22:24:38.596 CoreEventId.SaveChangesCompleted[10005] (Microsoft.EntityFrameworkCore.Update) 
+      SaveChanges completed for 'ApplicationContext' with 2 entities written to the database.
+dbug: 26.08.2022 22:24:38.654 CoreEventId.QueryCompilationStarting[10111] (Microsoft.EntityFrameworkCore.Query) 
+      Compiling query expression: 
+      'DbSet<User>()'
+"EntityFrameworkCore.exe" (CoreCLR: clrhost). Загружено "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.8\System.Linq.Queryable.dll". Загрузка символов пропущена. Модуль оптимизирован, включен параметр отладчика "Только мой код".
+dbug: 26.08.2022 22:24:39.071 CoreEventId.QueryExecutionPlanned[10107] (Microsoft.EntityFrameworkCore.Query) 
+      Generated query execution expression: 
+      'queryContext => new SingleQueryingEnumerable<User>(
+          (RelationalQueryContext)queryContext, 
+          RelationalCommandCache.SelectExpression(
+              Projection Mapping:
+                  EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: User.Age (int) Required, 1], [Property: User.Name (string), 2] }
+              SELECT u.Id, u.Age, u.Name
+              FROM Users AS u), 
+          Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+          ApplicationContext, 
+          False, 
+          False, 
+          True
+      )'
+dbug: 26.08.2022 22:24:39.121 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 26.08.2022 22:24:39.123 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (2ms).
+dbug: 26.08.2022 22:24:39.125 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:24:39.128 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:24:39.130 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Age", "u"."Name"
+      FROM "Users" AS "u"
+info: 26.08.2022 22:24:39.134 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Age", "u"."Name"
+      FROM "Users" AS "u"
+dbug: 26.08.2022 22:24:39.156 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 10}'.
+dbug: 26.08.2022 22:24:39.163 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 11}'.
+dbug: 26.08.2022 22:24:39.173 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 12}'.
+dbug: 26.08.2022 22:24:39.178 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 13}'.
+dbug: 26.08.2022 22:24:39.182 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 14}'.
+dbug: 26.08.2022 22:24:39.185 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 15}'.
+dbug: 26.08.2022 22:24:39.187 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 16}'.
+dbug: 26.08.2022 22:24:39.189 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 17}'.
+dbug: 26.08.2022 22:24:39.192 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 18}'.
+dbug: 26.08.2022 22:24:39.194 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 19}'.
+dbug: 26.08.2022 22:24:39.196 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 20}'.
+dbug: 26.08.2022 22:24:39.199 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 21}'.
+dbug: 26.08.2022 22:24:39.201 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 22}'.
+dbug: 26.08.2022 22:24:39.203 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 23}'.
+dbug: 26.08.2022 22:24:39.205 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 24}'.
+dbug: 26.08.2022 22:24:39.207 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 25}'.
+dbug: 26.08.2022 22:24:39.210 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 26}'.
+dbug: 26.08.2022 22:24:39.213 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 27}'.
+dbug: 26.08.2022 22:24:39.215 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 28}'.
+dbug: 26.08.2022 22:24:39.218 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 29}'.
+dbug: 26.08.2022 22:24:39.220 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 30}'.
+dbug: 26.08.2022 22:24:39.222 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 31}'.
+dbug: 26.08.2022 22:24:39.225 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 32}'.
+dbug: 26.08.2022 22:24:39.227 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 33}'.
+dbug: 26.08.2022 22:24:39.230 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 34}'.
+dbug: 26.08.2022 22:24:39.232 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 35}'.
+dbug: 26.08.2022 22:24:39.235 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 36}'.
+dbug: 26.08.2022 22:24:39.237 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 37}'.
+dbug: 26.08.2022 22:24:39.239 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 38}'.
+dbug: 26.08.2022 22:24:39.242 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 39}'.
+dbug: 26.08.2022 22:24:39.244 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 40}'.
+dbug: 26.08.2022 22:24:39.247 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 26.08.2022 22:24:39.250 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:24:39.252 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:24:39.263 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      'ApplicationContext' disposed.
+
+Программа "[20004] EntityFrameworkCore.exe" завершилась с кодом 0 (0x0).

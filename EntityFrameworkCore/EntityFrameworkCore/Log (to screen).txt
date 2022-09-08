@@ -1,0 +1,263 @@
+warn: 26.08.2022 22:36:21.361 CoreEventId.SensitiveDataLoggingEnabledWarning[10400] (Microsoft.EntityFrameworkCore.Infrastructure)
+      Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+info: 26.08.2022 22:36:21.684 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure)
+      Entity Framework Core 6.0.8 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite:6.0.8' with options: SensitiveDataLoggingEnabled
+dbug: 26.08.2022 22:36:21.791 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:36:21.816 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+База данных доступна
+dbug: 26.08.2022 22:36:21.832 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:36:21.833 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:36:21.844 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command)
+      Creating DbCommand for 'ExecuteScalar'.
+dbug: 26.08.2022 22:36:21.849 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command)
+      Created DbCommand for 'ExecuteScalar' (6ms).
+dbug: 26.08.2022 22:36:21.851 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:36:21.856 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:36:21.863 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command)
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+info: 26.08.2022 22:36:21.898 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command)
+      Executed DbCommand (29ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+dbug: 26.08.2022 22:36:21.903 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:36:21.908 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Closed connection to database 'main' on server 'helloapp.db'.
+База данных уже существует
+dbug: 26.08.2022 22:36:21.980 CoreEventId.ValueGenerated[10808] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      'ApplicationContext' generated temporary value '-2147482647' for the property 'Id.User'.
+dbug: 26.08.2022 22:36:22.056 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: -2147482647}'.
+dbug: 26.08.2022 22:36:22.059 CoreEventId.ValueGenerated[10808] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      'ApplicationContext' generated temporary value '-2147482646' for the property 'Id.User'.
+dbug: 26.08.2022 22:36:22.060 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: -2147482646}'.
+dbug: 26.08.2022 22:36:22.064 CoreEventId.SaveChangesStarting[10004] (Microsoft.EntityFrameworkCore.Update)
+      SaveChanges starting for 'ApplicationContext'.
+dbug: 26.08.2022 22:36:22.071 CoreEventId.DetectChangesStarting[10800] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      DetectChanges starting for 'ApplicationContext'.
+dbug: 26.08.2022 22:36:22.082 CoreEventId.DetectChangesCompleted[10801] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      DetectChanges completed for 'ApplicationContext'.
+dbug: 26.08.2022 22:36:22.096 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:36:22.098 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:36:22.105 RelationalEventId.TransactionStarting[20209] (Microsoft.EntityFrameworkCore.Database.Transaction)
+      Beginning transaction with isolation level 'Unspecified'.
+dbug: 26.08.2022 22:36:22.112 RelationalEventId.TransactionStarted[20200] (Microsoft.EntityFrameworkCore.Database.Transaction)
+      Began transaction with isolation level 'Serializable'.
+dbug: 26.08.2022 22:36:22.182 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command)
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 26.08.2022 22:36:22.184 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command)
+      Created DbCommand for 'ExecuteReader' (1ms).
+dbug: 26.08.2022 22:36:22.196 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command)
+      Executing DbCommand [Parameters=[@p0='33', @p1='Tom' (Size = 3)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Users" ("Age", "Name")
+      VALUES (@p0, @p1);
+      SELECT "Id"
+      FROM "Users"
+      WHERE changes() = 1 AND "rowid" = last_insert_rowid();
+info: 26.08.2022 22:36:22.214 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command)
+      Executed DbCommand (22ms) [Parameters=[@p0='33', @p1='Tom' (Size = 3)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Users" ("Age", "Name")
+      VALUES (@p0, @p1);
+      SELECT "Id"
+      FROM "Users"
+      WHERE changes() = 1 AND "rowid" = last_insert_rowid();
+dbug: 26.08.2022 22:36:22.251 CoreEventId.ForeignKeyChangeDetected[10803] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      The foreign key property 'User.Id' was detected as changed from '-2147482647' to '45' for entity with key '{Id: 45}'.
+dbug: 26.08.2022 22:36:22.266 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command)
+      A data reader was disposed.
+dbug: 26.08.2022 22:36:22.269 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command)
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 26.08.2022 22:36:22.272 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command)
+      Created DbCommand for 'ExecuteReader' (2ms).
+dbug: 26.08.2022 22:36:22.275 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command)
+      Executing DbCommand [Parameters=[@p0='26', @p1='Alice' (Size = 5)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Users" ("Age", "Name")
+      VALUES (@p0, @p1);
+      SELECT "Id"
+      FROM "Users"
+      WHERE changes() = 1 AND "rowid" = last_insert_rowid();
+info: 26.08.2022 22:36:22.286 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command)
+      Executed DbCommand (11ms) [Parameters=[@p0='26', @p1='Alice' (Size = 5)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Users" ("Age", "Name")
+      VALUES (@p0, @p1);
+      SELECT "Id"
+      FROM "Users"
+      WHERE changes() = 1 AND "rowid" = last_insert_rowid();
+dbug: 26.08.2022 22:36:22.297 CoreEventId.ForeignKeyChangeDetected[10803] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      The foreign key property 'User.Id' was detected as changed from '-2147482646' to '46' for entity with key '{Id: 46}'.
+dbug: 26.08.2022 22:36:22.301 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command)
+      A data reader was disposed.
+dbug: 26.08.2022 22:36:22.306 RelationalEventId.TransactionCommitting[20210] (Microsoft.EntityFrameworkCore.Database.Transaction)
+      Committing transaction.
+dbug: 26.08.2022 22:36:22.343 RelationalEventId.TransactionCommitted[20202] (Microsoft.EntityFrameworkCore.Database.Transaction)
+      Committed transaction.
+dbug: 26.08.2022 22:36:22.346 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:36:22.350 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Closed connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:36:22.354 RelationalEventId.TransactionDisposed[20204] (Microsoft.EntityFrameworkCore.Database.Transaction)
+      Disposing transaction.
+dbug: 26.08.2022 22:36:22.367 CoreEventId.StateChanged[10807] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      The 'User' entity with key '{Id: 45}' tracked by 'ApplicationContext' changed state from 'Added' to 'Unchanged'.
+dbug: 26.08.2022 22:36:22.369 CoreEventId.StateChanged[10807] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      The 'User' entity with key '{Id: 46}' tracked by 'ApplicationContext' changed state from 'Added' to 'Unchanged'.
+dbug: 26.08.2022 22:36:22.374 CoreEventId.SaveChangesCompleted[10005] (Microsoft.EntityFrameworkCore.Update)
+      SaveChanges completed for 'ApplicationContext' with 2 entities written to the database.
+dbug: 26.08.2022 22:36:22.407 CoreEventId.QueryCompilationStarting[10111] (Microsoft.EntityFrameworkCore.Query)
+      Compiling query expression:
+      'DbSet<User>()'
+dbug: 26.08.2022 22:36:22.611 CoreEventId.QueryExecutionPlanned[10107] (Microsoft.EntityFrameworkCore.Query)
+      Generated query execution expression:
+      'queryContext => new SingleQueryingEnumerable<User>(
+          (RelationalQueryContext)queryContext,
+          RelationalCommandCache.SelectExpression(
+              Projection Mapping:
+                  EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: User.Age (int) Required, 1], [Property: User.Name (string), 2] }
+              SELECT u.Id, u.Age, u.Name
+              FROM Users AS u),
+          Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>,
+          ApplicationContext,
+          False,
+          False,
+          True
+      )'
+dbug: 26.08.2022 22:36:22.658 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command)
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 26.08.2022 22:36:22.660 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command)
+      Created DbCommand for 'ExecuteReader' (1ms).
+dbug: 26.08.2022 22:36:22.665 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Opening connection to database 'main' on server 'helloapp.db'.
+dbug: 26.08.2022 22:36:22.668 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Opened connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:36:22.671 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command)
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Age", "u"."Name"
+      FROM "Users" AS "u"
+info: 26.08.2022 22:36:22.676 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command)
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Age", "u"."Name"
+      FROM "Users" AS "u"
+dbug: 26.08.2022 22:36:22.686 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 10}'.
+dbug: 26.08.2022 22:36:22.692 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 11}'.
+dbug: 26.08.2022 22:36:22.696 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 12}'.
+dbug: 26.08.2022 22:36:22.698 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 13}'.
+dbug: 26.08.2022 22:36:22.700 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 14}'.
+dbug: 26.08.2022 22:36:22.703 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 15}'.
+dbug: 26.08.2022 22:36:22.709 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 16}'.
+dbug: 26.08.2022 22:36:22.712 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 17}'.
+dbug: 26.08.2022 22:36:22.714 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 18}'.
+dbug: 26.08.2022 22:36:22.718 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 19}'.
+dbug: 26.08.2022 22:36:22.720 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 20}'.
+dbug: 26.08.2022 22:36:22.727 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 21}'.
+dbug: 26.08.2022 22:36:22.729 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 22}'.
+dbug: 26.08.2022 22:36:22.732 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 23}'.
+dbug: 26.08.2022 22:36:22.735 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 24}'.
+dbug: 26.08.2022 22:36:22.741 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 25}'.
+dbug: 26.08.2022 22:36:22.744 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 26}'.
+dbug: 26.08.2022 22:36:22.746 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 27}'.
+dbug: 26.08.2022 22:36:22.749 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 28}'.
+dbug: 26.08.2022 22:36:22.754 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 29}'.
+dbug: 26.08.2022 22:36:22.757 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 30}'.
+dbug: 26.08.2022 22:36:22.760 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 31}'.
+dbug: 26.08.2022 22:36:22.762 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 32}'.
+dbug: 26.08.2022 22:36:22.764 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 33}'.
+dbug: 26.08.2022 22:36:22.768 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 34}'.
+dbug: 26.08.2022 22:36:22.773 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 35}'.
+dbug: 26.08.2022 22:36:22.776 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 36}'.
+dbug: 26.08.2022 22:36:22.779 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 37}'.
+dbug: 26.08.2022 22:36:22.781 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 38}'.
+dbug: 26.08.2022 22:36:22.785 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 39}'.
+dbug: 26.08.2022 22:36:22.788 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 40}'.
+dbug: 26.08.2022 22:36:22.790 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 41}'.
+dbug: 26.08.2022 22:36:22.793 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 42}'.
+dbug: 26.08.2022 22:36:22.795 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 43}'.
+dbug: 26.08.2022 22:36:22.798 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking)
+      Context 'ApplicationContext' started tracking 'User' entity with key '{Id: 44}'.
+dbug: 26.08.2022 22:36:22.804 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command)
+      A data reader was disposed.
+dbug: 26.08.2022 22:36:22.806 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Closing connection to database 'main' on server 'C:\Users\Admin\source\repos\OlegApps\EntityFrameworkCore\EntityFrameworkCore\bin\Debug\net6.0\helloapp.db'.
+dbug: 26.08.2022 22:36:22.809 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection)
+      Closed connection to database 'main' on server 'helloapp.db'.
+10. Alice - 26
+11. Oleg - 50
+12. Angela - 53
+13. Tom - 33
+14. Alice - 26
+15. Oleg - 50
+16. Angela - 53
+17. Tom - 33
+18. Alice - 26
+19. Oleg - 50
+20. Angela - 53
+21. Tom - 33
+22. Alice - 26
+23. Oleg - 50
+24. Angela - 53
+25. Tom - 33
+26. Alice - 26
+27. Oleg - 50
+28. Angela - 53
+29. Tom - 33
+30. Alice - 26
+31. Oleg - 50
+32. Angela - 53
+33. Tom - 33
+34. Alice - 26
+35. Tom - 33
+36. Alice - 26
+37. Tom - 33
+38. Alice - 26
+39. Tom - 33
+40. Alice - 26
+41. Tom - 33
+42. Alice - 26
+43. Tom - 33
+44. Alice - 26
+45. Tom - 33
+46. Alice - 26
+dbug: 26.08.2022 22:36:22.897 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure)
+      'ApplicationContext' disposed.
