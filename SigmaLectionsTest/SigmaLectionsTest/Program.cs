@@ -21,13 +21,125 @@ using System.Threading; // async, await, Task
 using System.Xml.Linq;
 using SigmaLectionsTest;
 
-
-
-
 // [assembly:CLSCompliant(true)]
 namespace SigmaLectionsTest
 {
-	class Lecture_3_1
+	class Lecture_1
+	{
+		static void Method(ref int i) { i = i + 44; }
+
+		public static void Lecture1_1()
+		{
+			int val = 1;
+			Method(ref val);
+			Console.WriteLine(val); // output: 45
+		}
+
+		static void Method(out int i, out string s1, out string s2)
+		{
+			i = 44;
+			s1 = "I've been returned";
+			s2 = null;
+		}
+
+		public static void Lecture1_2()
+		{
+			int value;
+			string str1, str2;
+			Method(out value, out str1, out str2);
+			Console.WriteLine(value); // 44
+			Console.WriteLine(str1); // I've been returned
+			Console.WriteLine(str2); // empty = null
+		}
+
+		private static void Calculate(int a, int b, string firstDefault = "First Default Value",
+									  string secondDefault = "Second Default Value")
+		{
+			var result = (a + 1) * b;
+			Console.WriteLine("Result of (a + 1) * b = {0}", result);
+			Console.WriteLine("firstDefault = {0}", firstDefault);
+			Console.WriteLine("secondDefault = {0}", secondDefault);
+		}
+
+		public static void Lecture1_3()
+		{
+			Console.WriteLine("1:");
+			Calculate(1, 2);
+			//1:
+			//Result of (a + 1) * b = 4
+			//firstDefault = First Default Value
+			//secondDefault = Second Default Value
+			Console.WriteLine("2:");
+			Calculate(b: 2, a: 1);
+			//2:
+			//Result of (a + 1) * b = 4
+			//firstDefault = First Default Value
+			//secondDefault = Second Default Value
+			Console.WriteLine("3:");
+			Calculate(3, 6, "Other Value");
+			//3:
+			//Result of (a + 1) * b = 24
+			//firstDefault = Other Value
+			//secondDefault = Second Default Value
+			Console.WriteLine("4:");
+			Calculate(6, 3, secondDefault: "Other Value");
+			//4:
+			//Result of (a + 1) * b = 21
+			//firstDefault = First Default Value
+			//secondDefault = Other Value
+		}
+
+		public static void UseParams(params int[] list)
+		{
+			for (int i = 0; i < list.Length; i++)
+			{
+				Console.Write(list[i] + " ");
+			}
+			Console.WriteLine();
+		}
+		public static void UseParams2(double otherProperty, params object[] list)
+		{
+			for (int i = 0; i<list.Length; i++)
+			{
+				Console.Write(list[i]+" ");
+			}
+			Console.WriteLine();
+		}
+
+		public static void Lecture1_4()
+		{
+            // You can send a comma-separated list of arguments of the specified type. UseParams(1, 2, 3, 4);
+            UseParams(1, 2, 3, 4);
+            UseParams2(1, 'a', "test");
+			// A params parameter accepts zero or more arguments.
+			// The following calling statement displays only a blank line.
+			UseParams();
+			// An array argument can be passed, as long as the array
+			// type matches the parameter type of the method being called.
+			int[] myIntArray = { 5, 6, 7, 8, 9 };
+			UseParams(myIntArray);
+			object[] myobjArray = { 2, 'b', "test", "again" };
+			UseParams2(2.2, myobjArray);
+            // Output:
+            // 1 2 3 4
+            // a test
+            //
+            // 5 6 7 8 9
+            // 2 b test again
+        }
+
+        public static void Lecture1_5()
+		{
+            // create a 4-tuple.
+            var population = new Tuple<string, int, int, int>("New York", 7891957, 7781984, 7894862);
+			// Display the first and last elements.
+			Console.WriteLine("Population of {0} in 2000: {1:N0}", population.Item1, population.Item4);
+            // Population of New York in 2000: 7,894,862
+        }
+
+	}
+
+    class Lecture_3_1
 	{
 		// Зчислення, що визначає дні тижня 
 		enum Days { Mon, Tue, Wed, Thi, Fri, Sat, Sun };
@@ -76,10 +188,11 @@ namespace SigmaLectionsTest
 				Console.WriteLine("Wrong input."); return;
 			}
 			Months MN; // змінна типу Months
-					   // Ініціалізувати MN значенням на основі змінної month.
-					   // Метод Enum.GetValues() повертає клас System.Array.
-					   // У класі System.Array є метод GetValue(), який повертає значення об'єкту за індексом (0..11). 
+			// Ініціалізувати MN значенням на основі змінної month.
+			// Метод Enum.GetValues() повертає клас System.Array.
+			// У класі System.Array є метод GetValue(), який повертає значення об'єкту за індексом (0..11). 
 			MN = (Months)Enum.GetValues(typeof(Months)).GetValue(month - 1);
+			MN = (Months)month; // це те ж саме, оскільки Січень = 1 і т.д. :-)
 			switch (MN)
 			{
 				case Months.Feb:
@@ -116,7 +229,7 @@ namespace SigmaLectionsTest
 	}
 	class Employee : Person
 	{
-		string company;
+		string company; // поля за-замовчуванням є private
 
 		public Employee(string name, int age, string company) : base(name, age)
 		{
@@ -141,7 +254,7 @@ namespace SigmaLectionsTest
 			this.x = x;
 			this.y = y;
 		}
-		public override bool Equals(object obj)
+		public override bool Equals(object obj) // overrides Object.Equals
 		{
 			// If this and obj do not refer to the same type, then they are not equal.
 			if (obj.GetType() != this.GetType()) return false;
@@ -180,7 +293,7 @@ namespace SigmaLectionsTest
 			// The line below displays false because p1 and p2 refer to two different objects.
 			Console.WriteLine(Object.ReferenceEquals(p1, p2));
 			// The line below displays true because p1 and p2 refer to two different objects that have the same value.
-			Console.WriteLine(Object.Equals(p1, p2));
+			Console.WriteLine(Equals(p1, p2)); // can be also called as Object.Equals, the same result
 			// The line below displays true because p1 and p3 refer to one object.
 			Console.WriteLine(Object.ReferenceEquals(p1, p3));
 			// The line below displays: p1's value is: (1, 2)
@@ -188,8 +301,10 @@ namespace SigmaLectionsTest
 			var a = p1.MemberwiseClone(); // copy of object!
 										  // The line below displays: a's value is: (1, 2)
 			Console.WriteLine($"a's value is: {a.ToString()}");
-		}
-	}
+			p1.x = 5;
+            Console.WriteLine($"p3's value is: {p3.ToString()}"); // (5, 2) because changing p1 changes p3
+        }
+    }
 
 	interface I1
 	{
@@ -512,7 +627,16 @@ namespace SigmaLectionsTest
 		}
 		#endregion
 
-		static void Lecture3()
+		static void Lecture1()
+		{
+            Lecture_1.Lecture1_1();
+            Lecture_1.Lecture1_2();
+            Lecture_1.Lecture1_3();
+            Lecture_1.Lecture1_4();
+			Lecture_1.Lecture1_5();
+        }
+
+        static void Lecture3()
 		{
 			Lecture_3_1.Lecture31();
 			Lecture_3_2.Lecture32();
@@ -532,8 +656,8 @@ namespace SigmaLectionsTest
 			((TextBox)дужеКрасиваЗмінна).Undo(); // RichTextBox.Undo
 
 			RichTextBoxV простоКрасиваЗмінна = new();
-			простоКрасиваЗмінна.Undo(); // RichTextBox.Undo
-			((IUndoable)простоКрасиваЗмінна).Undo(); // RichTextBox.Undo
+			простоКрасиваЗмінна.Undo(); // RichTextBoxV.Undo
+			((IUndoable)простоКрасиваЗмінна).Undo(); // RichTextBoxV.Undo
 		}
 
 		static void Lecture4()
@@ -4585,7 +4709,8 @@ Second Line";
         {
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
-            // Lecture3(); // enums, exceptions, Equals, ReferenceEquals
+			Lecture1(); // ref/out, default and named parameters, params, tuples
+			// Lecture3(); // enums, exceptions, Equals, ReferenceEquals
             // Lecture4(); // matrices
             // Lecture10(); // strings, StringBuilder, string formats, try-catch
             // Лекция13(); // try-catch cont.
@@ -4597,9 +4722,9 @@ Second Line";
             /// <seealso cref="ПропаданиеСимвола"/>
             // ПропаданиеСимвола(); // bug-report has been sent to Microsoft. Works only in VS, not when EXE running
             // DictionarySerialization();
-			// Patterns();
-			// AdditionalTests.AdditionalLecturesTests();
-			// Sobes();
+            // Patterns();
+            // AdditionalTests.AdditionalLecturesTests();
+            // Sobes();
             // AsyncTest.Test();
             // ConsoleTest();
             // EnvironmentTest();
