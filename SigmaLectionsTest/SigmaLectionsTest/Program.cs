@@ -346,7 +346,126 @@ namespace SigmaLectionsTest
 		public void Undo() => Console.WriteLine("RichTextBoxV.Undo");
 	}
 
-	public class Matrices
+	public class Lecture3_4
+	{
+		public static void Lecture34()
+		{
+			// створюємо екземпляр класу
+			var t = new Toster(199065);
+			// виводимо значение константи ProjectName
+			// доступ тільки через Toster
+			Console.WriteLine(Toster.ProjectName);
+			// доступа до локальних констант тут немає
+			// Toster.CounterPattern
+			// t.CounterPattern
+
+			// виводимо заголовок питання
+			Console.WriteLine(t.Title);
+            Console.WriteLine("Нажміть щось, щоб закінчити цикл");
+
+            // нескінченність - не обмеження!
+            while (!Console.KeyAvailable)
+			{
+				// t.Id = 123;
+				// ми не можемо поміняти ідентифікатор
+				// тому, цей код буде працювати правильно
+
+				// виводимо число відповідей
+				Console.WriteLine("Відповідей: {0}", t.AnswersCount);
+
+				// t.AnswersCount = 123
+				// ми не можемо міняти значення readonly властивостей,
+				// але воно може змінюватись всередині екземпляра класа
+
+				// пауза 10 сек.
+				if (!Console.KeyAvailable) 
+					Thread.Sleep(10000);
+			}
+			Console.ReadKey();
+		}
+        
+        public class Toster
+        {
+
+            // публічна константа, доступ через Toster
+            public const string ProjectName = "Тостер";
+
+            // локальна константа, доступна тілько в рамках цього класу
+            const string CounterPattern = "<span class=\"section-header__counter\" role=\"answers_counter\">";
+
+            // публичні поля тільки для читання
+            // значення може бути установлене в конструкторі
+            public readonly string Title = "Немає даних";
+            public readonly int Id = 0;
+
+            // властивість тільки для читання
+            // значення зможе мінятися в процесі життя екземпляра класу
+            // за допомогою локальної змінної
+            private int _AnswersCount = 0;
+            public int AnswersCount
+            {
+                get
+                {
+                    return _AnswersCount;
+                }
+            }
+
+            // це просто таймер
+            private System.Timers.Timer Timer = null;
+
+            // а це конструктор
+            public Toster(int id)
+            {
+                if (id <= 0) { return; }
+
+                // отримуємо запит
+                var web = new WebClient();
+                web.Encoding = Encoding.UTF8;
+                var result = web.DownloadString(String.Format("https://qna.habr.com/q/{0}", id));
+                // із шаблона url також можна зробити константу
+                //або в класі можна зробити readonly властивість, 
+                // яка буде на льоту формувати кінцеву адресу:
+                // return String.Format("https://toster.ru/q/{0}", this.Id)
+
+                // встановлюємо значення для полів
+                this.Id = id;
+                this.Title = WebUtility.HtmlDecode
+                (
+                  result.Substring
+                  (
+                    result.IndexOf("<title>") + "<title>".Length,
+                    result.IndexOf("</title>") - result.IndexOf("<title>") - "<title>".Length
+                  )
+                );
+                // виймаємо число відповідей  на запитання
+                this.ParseAnswersCount(result);
+
+                // запускаємо периодичну перевірку 
+                Timer = new System.Timers.Timer(10000);
+                Timer.Elapsed += Timer_Elapsed;
+            }
+
+            // обробник закінчення часового інтервалу 
+            private void Timer_Elapsed(object sender, EventArgs e)
+            {
+                var web = new WebClient();
+                web.Encoding = Encoding.UTF8;
+                var result = web.DownloadString(String.Format("https://qna.habr.com/q/{0}", this.Id));
+                this.ParseAnswersCount(result);
+            }
+
+            // виймач кількості відповідей
+            private void ParseAnswersCount(string value)
+            {
+                int startstart = value.IndexOf("Ответы на вопрос");
+                int start = value.IndexOf(CounterPattern, startstart) + CounterPattern.Length;
+                int len = value.IndexOf("</span>", start) - start;
+                _AnswersCount = Convert.ToInt32(value.Substring(start, len));
+            }
+        }
+    }
+
+    public class Matrices
 	{
 		public static void Lecture41()
 		{
@@ -658,7 +777,10 @@ namespace SigmaLectionsTest
 			RichTextBoxV простоКрасиваЗмінна = new();
 			простоКрасиваЗмінна.Undo(); // RichTextBoxV.Undo
 			((IUndoable)простоКрасиваЗмінна).Undo(); // RichTextBoxV.Undo
-		}
+
+			Lecture3_4.Lecture34();
+
+        }
 
 		static void Lecture4()
 		{
@@ -4709,8 +4831,8 @@ Second Line";
         {
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
-			Lecture1(); // ref/out, default and named parameters, params, tuples
-			// Lecture3(); // enums, exceptions, Equals, ReferenceEquals
+			// Lecture1(); // ref/out, default and named parameters, params, tuples
+			Lecture3(); // enums, exceptions, Equals, ReferenceEquals
             // Lecture4(); // matrices
             // Lecture10(); // strings, StringBuilder, string formats, try-catch
             // Лекция13(); // try-catch cont.
