@@ -20,6 +20,7 @@ using System.Net;
 using System.Threading; // async, await, Task
 using System.Xml.Linq;
 using SigmaLectionsTest;
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 // [assembly:CLSCompliant(true)]
 namespace SigmaLectionsTest
@@ -314,9 +315,9 @@ namespace SigmaLectionsTest
 	{
 		int Foo();
     }
-	
-	public class Widget : I1, I2
-	{
+
+    public class Widget : I1, I2
+    {
 		public void Foo()
 		{
 			Console.WriteLine("Widget’s implementation of I1.Foo");
@@ -647,11 +648,11 @@ namespace SigmaLectionsTest
 	{
 		public int Seconds { get; set; }
 
-		public static implicit operator Counter(int x)
+		public static implicit operator Counter(int x) // implicit - неявний, викликає автоматичне перетворення
 		{
 			return new Counter { Seconds = x };
 		}
-		public static explicit operator int(Counter counter)
+		public static explicit operator int(Counter counter) // потребує писати (int)variable для перетворення
 		{
 			return counter.Seconds;
 		}
@@ -820,7 +821,8 @@ Second Line";
 			string s2 = "Б";
 			Console.WriteLine(s1.CompareTo(s2)); // -1 (s1 < s2)
 			Console.WriteLine(String.Compare(s1, s2)); // -1 (s1 < s2)
-			Console.WriteLine(String.CompareOrdinal(s1, s2)); // 31 (s1 > s2) :)
+            Console.WriteLine(String.Compare(s1, s2, false)); // -1 (s1 < s2), ignore case = false/true неважно тут
+            Console.WriteLine(String.CompareOrdinal(s1, s2)); // 31 (s1 > s2) :)
 
 			StringBuilder sb = new();
 			// (Append),вставляти (Insert), видаляти (Remove) і замінювати (Replace) підрядка
@@ -4622,12 +4624,12 @@ Second Line";
 			Console.WriteLine("ForegroundColor: " + Console.ForegroundColor); // Gray
 			Console.WriteLine("BufferHeight: " + Console.BufferHeight); // 900
 			Console.WriteLine("BufferWidth: " + Console.BufferWidth); // 166
-			Console.WriteLine("CapsLock: " + Console.CapsLock); // False
+			Console.WriteLine("CapsLock: " + Console.CapsLock); // False --> only Windows
 			Console.WriteLine("CursorLeft: " + Console.CursorLeft); // 0
 			Console.WriteLine("CursorTop: " + Console.CursorTop); // 9
 			Console.WriteLine("CursorSize: " + Console.CursorSize); // 25  
-			Console.WriteLine("CursorVisible: " + Console.CursorVisible); // True
-			Console.WriteLine("GetCursorPosition: " + Console.GetCursorPosition()); // (0, 12) 
+			Console.WriteLine("CursorVisible: " + Console.CursorVisible); // True --> only Windows
+            Console.WriteLine("GetCursorPosition: " + Console.GetCursorPosition()); // (0, 12) 
 			Console.WriteLine("Error: " + Console.Error); // System.IO.TextWriter + SyncTextWriter
 			Console.WriteLine("In: " + Console.In); // System.IO.SyncTextReader
 			Console.WriteLine("Out: " + Console.Out); // System.IO.TextWriter + SyncTextWriter
@@ -4638,9 +4640,9 @@ Second Line";
 			Console.WriteLine("KeyAvailable: " + Console.KeyAvailable); // False
 			Console.WriteLine("LargestWindowHeight: " + Console.LargestWindowHeight); // 44
 			Console.WriteLine("LargestWindowWidth: " + Console.LargestWindowWidth); // 170
-			Console.WriteLine("NumberLock: " + Console.NumberLock); // True
-			Console.WriteLine("Title: " + Console.Title); // C:\Users\Admin\source\repos\OlegApps\SigmaLectionsTest\SigmaLectionsTest\bin\Debug\net5.0\SigmaLectionsTest.exe
-			Console.WriteLine("TreatControlCAsInput: " + Console.TreatControlCAsInput); // False
+			Console.WriteLine("NumberLock: " + Console.NumberLock); // True --> only Windows
+            Console.WriteLine("Title: " + Console.Title); // C:\Users\Admin\source\repos\OlegApps\SigmaLectionsTest\SigmaLectionsTest\bin\Debug\net5.0\SigmaLectionsTest.exe --> only Windows
+            Console.WriteLine("TreatControlCAsInput: " + Console.TreatControlCAsInput); // False
 			Console.WriteLine("WindowHeight: " + Console.WindowHeight); // 42
 			Console.WriteLine("WindowLeft: " + Console.WindowLeft); // 0
 			Console.WriteLine("WindowTop: " + Console.WindowTop); // 0
@@ -4823,6 +4825,13 @@ Second Line";
 
 		}
 
+        public static void CSharp11test()
+        {
+            double a = double.MaxValue;
+            int b = unchecked((int)a);
+            Console.WriteLine(b);  // output: -2147483648
+        }
+
         /// <summary>Main method is the program entry point, only currently needed methods are used.</summary>
         /// <remarks>Setting console encodings and running currenly studied procedure.</remarks>
         /// <returns>Nothing 😁</returns>
@@ -4831,10 +4840,10 @@ Second Line";
         {
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
-			// Lecture1(); // ref/out, default and named parameters, params, tuples
-			Lecture3(); // enums, exceptions, Equals, ReferenceEquals
+            // Lecture1(); // ref/out, default and named parameters, params, tuples
+            // Lecture3(); // enums, exceptions, Equals, ReferenceEquals
             // Lecture4(); // matrices
-            // Lecture10(); // strings, StringBuilder, string formats, try-catch
+            Lecture10(); // strings, StringBuilder, string formats, try-catch
             // Лекция13(); // try-catch cont.
             // Лекция17(); // collections
             // Лекция18(); // Lambdas, delegates, events
@@ -4850,7 +4859,9 @@ Second Line";
             // AsyncTest.Test();
             // ConsoleTest();
             // EnvironmentTest();
+            // CSharp11test();
         } // Main
+
     } // Program class
 } // namespace
  
