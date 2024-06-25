@@ -581,17 +581,17 @@ namespace SigmaLectionsTest
 			{
 				Console.WriteLine("You've given me more than a byte!");
 			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.Message);
-			}
-			finally
+			catch (Exception ex) when (ex.Message != "") // Фільтр винятків
+            {
+				Console.WriteLine(ex.Message); // Якщо when дає false, то даний блок catch ігнорується і переглядаються будь-які наступні конструкції catch. 
+            }
+            finally
 			{
 				Console.WriteLine("part 2 completed");
 			}
 		}
-		public static void ReadFile()
-		{
+		public static void ReadFile() // це ≈ using (StreamReader reader = File.OpenText("file.txt")) {...}
+        {
 			StreamReader reader = null;
 			try
 			{
