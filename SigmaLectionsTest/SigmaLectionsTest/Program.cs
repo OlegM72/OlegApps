@@ -967,8 +967,20 @@ Second Line";
 
 		public static void Лекция13()
 		{
-			Fraction fraction1 = new(1, 5);
-			Console.WriteLine(fraction1); // 1 / 5
+			int num = 0, den = 0;
+            Console.WriteLine("Input numerator:");
+            try { num = Int32.Parse(Console.ReadLine()); } 
+            catch (Exception ex) { Console.WriteLine(ex.GetType() + ": " + ex.Message); }
+            
+			Console.WriteLine("Input denominator:");
+			try { den = Int32.Parse(Console.ReadLine()); } 
+            catch (Exception ex) { Console.WriteLine(ex.GetType() + ": " + ex.Message); }
+
+			Fraction? fraction1 = null;
+            try { fraction1 = new(num, den); }
+            catch (Exception ex) { Console.WriteLine(ex.GetType() + ": " + ex.Message); }
+            // Fraction fraction1 = new(1, 5);
+            Console.WriteLine(fraction1); // 1 / 5
 			try
 			{
 				Fraction fraction2 = new(2, 0); // System.ArgumentException: Denominator cannot be zero. (Parameter 'denominator')
@@ -4843,8 +4855,8 @@ Second Line";
             // Lecture1(); // ref/out, default and named parameters, params, tuples
             // Lecture3(); // enums, exceptions, Equals, ReferenceEquals
             // Lecture4(); // matrices
-            Lecture10(); // strings, StringBuilder, string formats, try-catch
-            // Лекция13(); // try-catch cont.
+            // Lecture10(); // strings, StringBuilder, string formats, try-catch
+            Лекция13(); // try-catch cont.; operators reloading
             // Лекция17(); // collections
             // Лекция18(); // Lambdas, delegates, events
             // Лекция20(); // SOLID, (de)serialization
